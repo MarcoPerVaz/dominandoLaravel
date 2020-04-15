@@ -4,11 +4,11 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Qué son y cómo funcionan las rutas__
+### Commit | __Rutas con nombre__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Routing`](https://laravel.com/docs/5.7/routing)
+[Documentación | `Named Routes`](https://laravel.com/docs/5.7/routing#named-routes)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
