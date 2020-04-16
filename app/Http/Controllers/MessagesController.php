@@ -8,21 +8,34 @@ class MessagesController extends Controller
 {
     public function store(/* Request $request */)
     {
-        /* return $request; */
-        /* return $request->get('email'); */
+        request()->validate([
+            'name'      => 'required',
+            'email'     => 'required|email',
+            'subject'   => 'required', 
+            'content'   => 'required|min:3', 
+        ]); 
 
-        return request('email'); /* Regresa una instancia de  use Illuminate\Http\Request; */
+        return "Datos validados";
     }
 }
 
 
 /* Notas:
     | -------------------------------------------------------------------------------------------------------------
-    | *Para obtener los valores mediante Request de los elementos HTML es necesario que cada elemento HTML tenga la 
-    |  propiedad name definida
-    | *Al usar return request('email'); se puede quitar el Request $request y el use Illuminate\Http\Request
+    | *request()->validate([]): Crear un array de campos a validar sobre los datos que vienen de la vista 
     | -------------------------------------------------------------------------------------------------------------
-    | *return $request; Obtiene todos los elementos HTML
-    | *return $request->get('email'); Obtiene solo el elemento HTML que tenga email en su propiedad name
+    | *'name' => 'required': 
+    |   *name es el valor de la propiedad name del elemento html (name="name")
+    |   *required es la validación, name es un campo obligatorio
+    | -------------------------------------------------------------------------------------------------------------
+    | *'email' => 'required|email'
+    |   *email es el valor de la propiedad name del elemento html (name="email")
+    |   *required es la validación, email es un campo obligatorio
+    |   *email el campo debe ser del tipo email
+    | -------------------------------------------------------------------------------------------------------------
+    | *'content' => 'required|min:3'
+    |   *content es el valor de la propiedad name del elemento html (name="content")
+    |   *required es la validación, content es un campo obligatorio
+    |   *min:3 el campo debe tener al menos 3 caracteres
     | -------------------------------------------------------------------------------------------------------------
 */
