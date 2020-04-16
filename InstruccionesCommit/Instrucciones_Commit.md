@@ -4,25 +4,19 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Activación de links de navegación__
+### Commit | __Cómo enviar formularios__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-
+[Documentación | `CSRF Protection`](https://laravel.com/docs/5.7/csrf#csrf-introduction)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición de la vista `resources\views\layout.blade.php`
-2. Creación y edición del archivo helper `app\helpers.php`
-
-    **Archivo o helper que sirve para activar los links de navegación*
-    - Edición del archivo `composer.json`
-        - Agregar: `"files": ["app/helpers.php"]` en `autoload`, después de `"classmap":[]`
-
-        **Para que laravel vuelva a cargar las clases y esta vez con el helper `helpers.php`, desde la consola y dentro de la ruta del proyecto*
-        > composer dumpautoload
-3. Creación del directorio `resources\views\partials`
-    - Creación y edición de la vista `resources\views\partials\nav.blade.php`
+1. Edición de la vista `resources\views\contact.blade.php`
+2. Edición del archivo de rutas `routes\web.php`
+3. Creación y edición del controlador `app\Http\Controllers\MessagesController.php`
+    > php artisan make:controller MessagesController
+    - Creación y edición de la función `store(Request $request)`
 <!-- end commit instructions -->
 ===
 <!-- notes -->
@@ -32,9 +26,7 @@
 ===
 <!-- information -->
 #### Información
-**Más información en `resources\views\layout.blade.php`*
+**Más información en `resources\views\contact.blade.php`*
 
-**Más información en `app\helpers.php`*
-
-**Más información en `resources\views\partials\nav.blade.php`*
+**Más información en `app\Http\Controllers\MessagesController.php`*
 <!-- end information -->
