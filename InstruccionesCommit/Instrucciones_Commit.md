@@ -4,57 +4,37 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Controladores Resource y API__
+### Commit | __Activación de links de navegación__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Resource Controllers`](https://laravel.com/docs/5.5/controllers#resource-controllers)
-[Documentación | `API Resource Routes`](https://laravel.com/docs/5.7/controllers#restful-partial-resource-routes)
+
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Eliminación del controlador `app\Http\Controllers\PortfolioController.php`
-2. Edición del archivo de rutas `routes\web.php`
-3. Creación y edición del controlador `app\Http\Controllers\PortfolioController.php`
-    > php artisan make:controller PortfolioController --resource
+1. Edición de la vista `resources\views\layout.blade.php`
+2. Creación y edición del archivo helper `app\helpers.php`
 
-    > php artisan make:controller PortfolioController -r
+    **Archivo o helper que sirve para activar los links de navegación*
+    - Edición del archivo `composer.json`
+        - Agregar: `"files": ["app/helpers.php"]` en `autoload`, después de `"classmap":[]`
 
-    **Cualquiera de estos 2 comandos crean el controlador con los 7 métodos REST (index, create, store, show, edit, update y destroy)*
-4. (opcional)Si desea cambiar el nombre a las rutas
-
-    **Ejemplo: create por crear*
-
-    - Edición del archivo `app\Providers\AppServiceProvider.php`
-        - Edición de la función `boot()`
-
-          **No olvidar importar use `Illuminate\Support\Facades\Route;`*
+        **Para que laravel vuelva a cargar las clases y esta vez con el helper `helpers.php`, desde la consola y dentro de la ruta del proyecto*
+        > composer dumpautoload
+3. Creación del directorio `resources\views\partials`
+    - Creación y edición de la vista `resources\views\partials\nav.blade.php`
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
-  - **Para ver las rutas existentes del proyecto, desde la consola se usa el comando*
-      > php artisan route:list
-
-      > php artisan r:l
-  - Crear un controlador API
-      > php artisan make:controller API/nombreController --api
-      - Para declarar la ruta API en `routes\web.php`
-        > Route::apiResource('portfolio', 'PortfolioController');
-
-      **Éste comando fue introducido a partir de Laravel 5.6*
-
-      **Éste comando no genera el método create ni el método edit*
 <!-- end notes -->
 ===
 <!-- information -->
 #### Información
-**Más información en `app\Http\Controllers\PortfolioController.php`*
+**Más información en `resources\views\layout.blade.php`*
 
-**Más información en `routes\web.php`*
+**Más información en `app\helpers.php`*
 
-**Más información en `app\Providers\AppServiceProvider.php`*
-
-**Más información en `app\Http\Controllers\PortfolioController.php`*
+**Más información en `resources\views\partials\nav.blade.php`*
 <!-- end information -->
