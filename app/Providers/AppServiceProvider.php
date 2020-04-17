@@ -37,9 +37,9 @@ class AppServiceProvider extends ServiceProvider
 
 /* Notas:
     | -----------------------
-    | *Para verificar que se cambiaron el nombre a las rutas
-    |   *Se debe editar el archivo routes\web.php
-     |       *Descomentar: Route::resource('/portfolio', 'PortfolioController');
-     |       *Comentar:    Route::get('/portfolio', 'PortfolioController@index')->name('portfolio');
+    | *Para traducir un texto estático también se puede desde el AppServiceProvider.php
+    |   *__('Create'), en lugar de 'crear'
+    | *Es recomendable que los textos a traducir estén todos en el mismo idioma (inglés en este caso)
+    | *Las traducciones al español están en resources\lang\es.json
     | -----------------------
 */

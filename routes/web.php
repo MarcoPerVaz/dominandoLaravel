@@ -1,6 +1,14 @@
 <?php
 
 /* 
+    | -----------------------------------------------------------------------------------------------------------
+    | *Si desea cambiar 'locale' => 'es', a 'locale' => 'en', sin necesidad de abrir el archivo config\app.php
+    | *Nota: Se puso entre comentarios porque no se usa pero funciona
+    | -----------------------------------------------------------------------------------------------------------
+*/
+// App::setLocale('en');
+
+/* 
     | -------------------------------------------
     | 3 Rutas básicas con función view() y nombre
     | url: /

@@ -4,19 +4,7 @@
 @section('title', 'Contact')
 
 @section('content')
-  <h1>Contact</h1>
-
-  {{-- {{ $errors }} --}}
-  {{-- {{ var_dump($errors->any()) }} --}}
-  {{-- {{ var_dump($errors->all()) }} --}}
-
-  {{-- @if ($errors->any())
-     <ul>
-       @foreach ($errors->all() as $error)
-           <li>{{ $error }}</li>
-       @endforeach
-     </ul>
-  @endif --}}
+  <h1>{{ __("Contact") }}</h1>
 
   <form action="{{ route('contact') }}" method="POST">
 
@@ -47,18 +35,19 @@
     {{-- end content --}}
 
     {{-- button --}}
-    <button>Enviar</button>
+    <button>@lang('Send')</button>
     {{-- end button --}}
   </form>
 @endsection
 
 {{-- Notas:
   | -----------------------------------------------------------------------------------------------------------------
-  | *{{ $errors }}: Muestra un array de errores
-  | *{{ var_dump($errors->any()): Regresa true o false si hay o no errores
-  | *{{ var_dump($errors->all()) }}: Regresa todos los errores de todos los campos
-  | *value="{{ old('name') }}" sirve para guardar el valor al fallar la validación
-  |   *'name' es el valor de la propiedad name del elemento HTML
-  |     *name="name"
+  | *Para traducir textos estáticos en la aplicación laravel implementa lo siguiente
+  |   *Usar esta sintaxis {{ __("Contact") }} en cualquier texto que se desee traducir
+  |     *Dónde "Contact" será el nombre de la variable json que queremos traducir
+  |       *Las variables de traducción están en resources\lang\es.php
+  |   *Tambien se puede usar la directiva @lang('Home') en lugar de {{ __("Home") }}
+  | *Es recomendable que los textos a traducir estén todos en el mismo idioma (inglés en este caso)
+  | *Las traducciones al español están en resources\lang\es.json
   | -----------------------------------------------------------------------------------------------------------------
 --}}
