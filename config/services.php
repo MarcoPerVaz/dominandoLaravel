@@ -26,6 +26,12 @@ return [
         'region' => env('SES_REGION', 'us-east-1'),
     ],
 
+    /* sendgrid service */
+    'sendgrid' => [
+        'api_key' => env('SENDGRID_API_KEY'),
+    ],
+    /* end sendgrid service */
+
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],

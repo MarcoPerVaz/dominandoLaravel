@@ -3,37 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+/*  */
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MessageReceived;
+/*  */
 
 class MessagesController extends Controller
 {
     public function store(/* Request $request */)
     {
-        request()->validate([
-            'name'      => 'required',
-            'email'     => 'required|email',
-            'subject'   => 'required', 
-            'content'   => 'required|min:3', 
-        ], [
-            'name.required' => __('I need your name'),
-        ]); 
+        $msg = request()->validate([
+                    'name'      => 'required',
+                    'email'     => 'required|email',
+                    'subject'   => 'required', 
+                    'content'   => 'required|min:3', 
+                ], [
+                    'name.required' => __('I need your name'),
+                ]); 
 
-        return "Datos validados";
+        /* 
+            | -------------
+            | *Enviar email
+            | -------------
+        */
+        Mail::to('marcooperdomo@gmail.com')->queue(new MessageReceived($msg));
+
+        /* 
+            | ------------------------------------------------------------------------------------
+            | *Para mostrar la información sin tener que abrir el archivo storage\logs\laravel.log
+            | ------------------------------------------------------------------------------------
+        */
+        // return new MessageReceived($msg);
+
+        return "Mensaje enviado";
     }
 }
 
 
 /* Notas:
     | ----------------------------------------------------------------------------------------------------------------
-    | *Para modificar una traducción solo para un formulario en específico(se hace desde el controlador)
-    |   *El mensaje de traducción se pasa como segundo parámetro en el método validate([], [aqui])
-    |   *'name.required' => __('I need your name'),: Es el mensaje personalizado para la validación
-    |   *'name' es el elemento HTML que se quiere validar
-    |   *'required' es la llave del archivo resources\lang\es\validation.php que queremos modificar el mensaje
-    |   * __('I need your name') es la variable de traducción que está en resources\lang\es.json
-    |       *Si no existe se puede crear
-    | ----------------------------------------------------------------------------------------------------------------
-    | *Para traducir textos estáticos también se puede desde el controlador
-    | *Es recomendable que los textos a traducir estén todos en el mismo idioma (inglés en este caso)
-    | *Las traducciones al español están en resources\lang\es.json
+    | *Al mandar email y teniendo MAIL_DRIVER=log en el archivo .env crea un archivo en storage\logs\laravel.log con los 
+    |  datos del email(funciona)
+    | *new MessageReceived($msg) es una nueva instancia de app\Mail\MessageReceived.php
+    |   *Dónde $msg es la variable public declarada en app\Mail\MessageReceived.php
+    | *La función queue() ayuda a hacer trabajos en 2do plano y evitar que el usuario tenga que esperar a que termine
+    |  el proceso (si no existe queue por defecto usará send() en lugar de queue())
     | ----------------------------------------------------------------------------------------------------------------
 */
