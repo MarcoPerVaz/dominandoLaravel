@@ -4,85 +4,98 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Variables de entorno y bases de datos__
+### Commit | __Qué son y cómo se utilizan las migraciones__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Environment Configuration`](https://laravel.com/docs/5.7/configuration#environment-configuration)
+[Documentación | `Database: Migrations`](https://laravel.com/docs/5.7/migrations#introduction)
 
-[Documentación | `Database: Getting Started`](https://laravel.com/docs/5.7/database)
+[Documentación | `Columns`](https://laravel.com/docs/5.7/migrations#columns)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición del archivo de configuración `.env`
+1. Edición del archivo de migración `database\migrations\2014_10_12_000000_create_users_table.php`
+2. Creación y edición del archivo de migración `database\migrations\2020_04_18_025856_add_phone_to_users_table.php`
+    > php artisan make:migration add_phone_to_users_table --table=users
 
-    **`DB_DATABASE=dominandoLaravel`*
+    **Migración que agrega un campo string('phone´)->nullable*
+3. Creación y edición de la migración `database\migrations\2020_04_18_025856_create_projects_table.php`
+4. Eliminación de la migración `database\migrations\2020_04_18_025856_add_phone_to_users_table.php`
 
-    **`DB_USERNAME=root`*
+    **Esta migración fue para practicar, pero aquí abajo se muestra lo importante*
 
-    **`DB_DATABASE=`*
-2. Crear la Base de Datos
+    **`$table->string('phone')->default('valorPorDefecto');` Por si se quiere crear un campo con valor predefinido*
 
-    **Asegurarse de iniciar el servidor de base de datos de Laragon, Xampp, Wamp, etc.*
-    - Opción 1
-        - `Crear la base de datos de forma manual desde el gestor de base de datos` 
-    - Opción 2
-        - Abrir la terminal de Laragon o la terminal de Git Bash
-        - Escribir el comando
-          > mysql -u root
-        - Escribir el comando
-          > create database dominandoLaravel;
-        - Escribir el comando para salir de Mysql
-          > exit;
+    **`$table->string('phone')->nullable();` Por si se quiere crear un campo que permita valores nulos*
+
+    **`$table->string('phone')->nullable()->after('email');` Por si se quiere crear un campo que permita valores nulos y colocar después de algún campo en particular*
+
+    **`$table->dropColumn('phone');` Revierte la creación de la columna `phone`*
+5. Refrescamos la base de datos
+    > php artisan migrate:fresh
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
-    ##### __Variables de entorno__
-  - [Documentación | `Retrieving Environment Configuration`](https://laravel.com/docs/5.7/configuration#retrieving-environment-configuration)
+  - Las migraciones son un Control de versiones de la base de datos
+  - Permite crear y modificar fácilmente las tablas
+  - Permite destruir y reconstruir el esquema de la base de datos
+  - Por defecto laravel incluye 2 migraciones y están en `database\migrations`
+    - `database\migrations\2014_10_12_000000_create_users_table.php`
+    - `database\migrations\2014_10_12_100000_create_password_resets_table.php`
 
-  - Las variables de entorno son las que varían dependiendo nuestra aplicación
-      - Lo más comunes son `Entorno de desarrollo` y `Entorno de producción` 
-      - `Entorno de Desarrollo` Es cuando estamos desarrollando la aplicación y se encuentra en nuestro ordenador personal
-      - `Entorno de Producción` Es cuando la aplicación ya se encuentra en un servidor público
-      - Cada entorno deberá tener separada la base de datos, es decir, el entorno de desarrollo tendrá su base de datos y el entorno de producción tendrá su base de datos
-      -  Para especificar las variables de entorno en Laravel se usa el archivo `.env` que es un archivo adicional que contendrá todos los datos de conexión de nuestra aplicación, es un archivo sensible por lo que Git lo debe ignorar y cada que se clona el proyecto deberá configurar su propio archivo `.env`
-      - El archivo `.env` cambiará dependiendo el entorno y el desarrollador
-      - El archivo `.env` sabe en que entorno está, gracias a `APP_ENV=` y `APP_DEBUG=`
-          - `APP_ENV=local` es Entorno de Desarrollo
-          - `APP_ENV=production` es Entorno de Producción
-          - `APP_DEBUG=true` muestra detalles de los errores de Laravel
-          - `APP_DEBUG=false` no muestra detalles de los errores de Laravel
+    **Las migraciones por defecto varían dependiedo la versión de Laravel*
+  - El nombre de la migración incluye la fecha de creación seguido por la acción que realiza
+      - `2014_10_12_000000_create_users_table.php`
+          - Dónde `2014_10_12_000000` es la fecha en que fue creada la migración
+          - Dónde `create_users_table.php` es la acción de la migración (crear una tabla llamada usuarios)
+  - Para ejecutar las migraciones
+    > php artisan migrate
+  - Para revertir cambios de una base de datos
+    > php artisan migrate:rollback
 
-              **`Es importante tener APP_DEBUG=false en producción para evitar mostrar información sensible de la aplicación`*  
-    ##### __Bases de Datos__
-  - [Documentación | `Database: Getting Started`](https://laravel.com/docs/5.7/database#introduction)  
+     **Depende del número que se encuentre en la tabla `migrations` de la base de datos y en su campo `batch` para regresar un número anterior*
 
-  - La configuración de la base de datos se encuentra en `config\database.php` (No se debe modificar)
-  - Las modificaciones necesarias sobre la base de datos se hacen en el archivo `.env`
-  - Edición del archivo de configuración `.env`
+     **Ejemplo: si en batch existe un o varios 3, rollback quitara cualquier migración con batch=3</em>*
+  - Para revertir ciertos pasos (steps) hacía atrás
+    > php artisan migrate:rollback --steep=nSteps
 
-        **`DB_DATABASE=dominandoLaravel`*
-    
-        **`DB_USERNAME=root`*
-    
-        **`DB_DATABASE=`*
-  - Crear la Base de Datos
+      **Dónde nSteps debe ser el número de pasos hacía atrás que se quieran hacer*
 
-    **Asegurarse de iniciar el servidor de base de datos de Laragon, Xampp, Wamp, etc.*
-    - Opción 1
-        - `Crear la base de datos de forma manual desde el gestor de base de datos` 
-    - Opción 2
-        - Abrir la terminal de Laragon o la terminal de Git Bash
-        - Escribir el comando
-          > mysql -u root
-        - Escribir el comando
-          > create database dominandoLaravel;
-        - Escribir el comando para salir de Mysql
-          > exit;  
+      **Ejemplo: `php artisan migrate:rollback --steep=1`*
+  - Para quitar todas las tablas y volver a ejecutar las migraciones
+    > php artisan migrate:fresh
+
+      **Este comando es destructivo ya que elimina toda la información de las tablas*
+  - Para crear una migración
+    > php artisan migration nombreMigracion
+
+      **El nombreMigracion debe especificar para que es la migración*
+
+      **Ejemplo: `create_categories_table` laravel automáticamente agrega la fecha a la migración*
+
+      **Ejemplo: `add_phone_to_users_table` laravel automáticamente agrega la fecha a la migración*
+
+       > php artisan migration nombreMigracion --create=nuevaTabla
+
+      **El nombreMigracion debe especificar para que es la migración*
+
+      **Ejemplo: `create_categories_table` laravel automáticamente agrega la fecha a la migración*
+
+      **Ejemplo: `add_phone_to_users_table --create=nuevaTabla` laravel automáticamente agrega la fecha a la migración, por si queremos que laravel nos ayude con un poco de código al crear la nueva migración para una tabla nueva*
+
+       > php artisan migration nombreMigracion --create=nuevaTabla
+
+      **Ejemplo: <code>add_phone_to_users_table --table=tablaExistente</code> laravel automáticamente agrega la fecha a la migración, por si queremos que laravel nos ayude con un poco de código al crear la nueva migración para una tabla existente*
+
+       > php artisan migration nombreMigracion --table=tabla
+  - Para usar funciones de las migraciones para SQLite u otras cosas [Ver ayuda](https://stackoverflow.com/questions/22413408/install-dependency-doctrine-dbal-on-composer-laravel)
 <!-- end notes -->
 ===
 <!-- information -->
-<!-- #### Información -->
+#### Información
+**Más información en `database\migrations\2014_10_12_000000_create_users_table.php`*
+
+**Más información en `database\migrations\2020_04_18_025856_create_projects_table.php`*
 <!-- end information -->
