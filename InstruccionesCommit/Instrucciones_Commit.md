@@ -4,87 +4,85 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Cómo enviar emails en Laravel__
+### Commit | __Variables de entorno y bases de datos__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Generating Mailables`](https://laravel.com/docs/5.7/mail#generating-mailables)
+[Documentación | `Environment Configuration`](https://laravel.com/docs/5.7/configuration#environment-configuration)
+
+[Documentación | `Database: Getting Started`](https://laravel.com/docs/5.7/database)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición del controlador `app\Http\Controllers\MessagesController.php`
-    - Edición de la función `store()`
+1. Edición del archivo de configuración `.env`
 
-        **No olvidar importar `use Illuminate\Support\Facades\Mail;`*
+    **`DB_DATABASE=dominandoLaravel`*
 
-        **No olvidar importar `use App\Mail\MessageReceived;`*
-2. Creación y edición del archivo mail `app\Mail\MessageReceived.php`
-    > php artisan make:mail MessageReceived
-    
-     **Si el directorio `app\Mail` no existe, se creará automáticamente al usar el comando*
-    - Edición de la función `build()`
-    - Edición de la función `__construct($msg)`
+    **`DB_USERNAME=root`*
 
-      **No olvidar `public $subject = 'Mensaje recibido';`*
+    **`DB_DATABASE=`*
+2. Crear la Base de Datos
 
-      **No olvidar `public $msg;`
-3. Creación del directorio `resources\views\emails`
-   - Creación y edición de la vista `resources\views\emails\message-received.blade.php`
-4. Edición del archivo de configuración `.env` para usar `log`
-   - `MAIL_DRIVER=log`
-
-     **Al mandar email y teniendo MAIL_DRIVER=log en el archivo .env crea o muestra un archivo en storage\logs\laravel.log con los datos del email(funciona) en lugar de mandar un mail usando smtp*
-
-   - Agregar: `MAIL_FROM_ADDRESS=admin@mail.com`
-   - Agregar: `MAIL_FROM_NAME='Marco Antonio'`
-4. Edición del archivo de configuración `.env` para usar `smtp`
-   - `MAIL_DRIVER=smtp`
-
-     **Al mandar email y teniendo MAIL_DRIVER=log en el archivo .env crea o muestra un archivo en storage\logs\laravel.log con los datos del email(funciona) en lugar de mandar un mail usando smtp*
-
-   - Agregar: `MAIL_USERNAME=usuarioDadoenMailtrap`
-   - Agregar: `MAIL_PASSWORD=contraseñaDadaenMailtrap`
-   - Agregar: `MAIL_FROM_ADDRESS=admin@mail.com`
-   - Agregar: `MAIL_FROM_NAME='Marco Antonio'`
-5. Para mandar un email real en modo de producción
-    
-    **Laravel por defecto no soporta Sendgrid, por lo que se debe instalar el paquete*
-
-    - Crear cuenta o iniciar sesion en SendGrid
-    - Ir a Settings/API Keys
-    - Create API Key
-    - Asignar nombre y create API Key
-        - Copiar la API KEY y pegar en el archivo `.env`
-            - `SENDGRID_API_KEY='YOUR_SENDGRID_API_KEY'`
-    - [Ir a `Sendgrid`](https://sendgrid.com/pricing/)
-       - Seleccionar el paquete `free` ya que es suficiente
-    - [Ir al repositorio `Laravel SendGrid`](https://github.com/s-ichikawa/laravel-sendgrid-driver/tree/2.0.0)
-        - Instalar el paquete de Sendgrid 2.0 para Laravel 5.5 y 5.7
-          > composer require s-ichikawa/laravel-sendgrid-driver "~2.0"
-    - Edición del archivo `.env`
-        - `MAIL_DRIVER=sendgrid`
-        - `SENDGRID_API_KEY='YOUR_SENDGRID_API_KEY'`
-6. Edición del archivo `config\services.php`
-
-        /* sendgrid service */
-         'sendgrid' => [
-            'api_key' => env('SENDGRID_API_KEY'),
-         ],
-        /* end sendgrid service */ 
-7. (Opcional) Reflejar lo hecho desde `.env` hacía `.env.example` para mantener consistencia en caso de clonar el proyecto 
-  - __Llega el correo a gmail, llega el correo a mailtrap y se crea el log con los datos del correo(comporbado)__ 
+    **Asegurarse de iniciar el servidor de base de datos de Laragon, Xampp, Wamp, etc.*
+    - Opción 1
+        - `Crear la base de datos de forma manual desde el gestor de base de datos` 
+    - Opción 2
+        - Abrir la terminal de Laragon o la terminal de Git Bash
+        - Escribir el comando
+          > mysql -u root
+        - Escribir el comando
+          > create database dominandoLaravel;
+        - Escribir el comando para salir de Mysql
+          > exit;
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
+    ##### __Variables de entorno__
+  - [Documentación | `Retrieving Environment Configuration`](https://laravel.com/docs/5.7/configuration#retrieving-environment-configuration)
+
+  - Las variables de entorno son las que varían dependiendo nuestra aplicación
+      - Lo más comunes son `Entorno de desarrollo` y `Entorno de producción` 
+      - `Entorno de Desarrollo` Es cuando estamos desarrollando la aplicación y se encuentra en nuestro ordenador personal
+      - `Entorno de Producción` Es cuando la aplicación ya se encuentra en un servidor público
+      - Cada entorno deberá tener separada la base de datos, es decir, el entorno de desarrollo tendrá su base de datos y el entorno de producción tendrá su base de datos
+      -  Para especificar las variables de entorno en Laravel se usa el archivo `.env` que es un archivo adicional que contendrá todos los datos de conexión de nuestra aplicación, es un archivo sensible por lo que Git lo debe ignorar y cada que se clona el proyecto deberá configurar su propio archivo `.env`
+      - El archivo `.env` cambiará dependiendo el entorno y el desarrollador
+      - El archivo `.env` sabe en que entorno está, gracias a `APP_ENV=` y `APP_DEBUG=`
+          - `APP_ENV=local` es Entorno de Desarrollo
+          - `APP_ENV=production` es Entorno de Producción
+          - `APP_DEBUG=true` muestra detalles de los errores de Laravel
+          - `APP_DEBUG=false` no muestra detalles de los errores de Laravel
+
+              **`Es importante tener APP_DEBUG=false en producción para evitar mostrar información sensible de la aplicación`*  
+    ##### __Bases de Datos__
+  - [Documentación | `Database: Getting Started`](https://laravel.com/docs/5.7/database#introduction)  
+
+  - La configuración de la base de datos se encuentra en `config\database.php` (No se debe modificar)
+  - Las modificaciones necesarias sobre la base de datos se hacen en el archivo `.env`
+  - Edición del archivo de configuración `.env`
+
+        **`DB_DATABASE=dominandoLaravel`*
+    
+        **`DB_USERNAME=root`*
+    
+        **`DB_DATABASE=`*
+  - Crear la Base de Datos
+
+    **Asegurarse de iniciar el servidor de base de datos de Laragon, Xampp, Wamp, etc.*
+    - Opción 1
+        - `Crear la base de datos de forma manual desde el gestor de base de datos` 
+    - Opción 2
+        - Abrir la terminal de Laragon o la terminal de Git Bash
+        - Escribir el comando
+          > mysql -u root
+        - Escribir el comando
+          > create database dominandoLaravel;
+        - Escribir el comando para salir de Mysql
+          > exit;  
 <!-- end notes -->
 ===
 <!-- information -->
-#### Información
-**Más información en `app\Http\Controllers\MessagesController.php`*
-
-**Más información en `app\Mail\MessageReceived.php`*
-
-**Más información en `resources\views\emails\message-received.blade.php`*
+<!-- #### Información -->
 <!-- end information -->
