@@ -1,20 +1,22 @@
 <?php
 
-/* Notas:
-    | ------------------------------------------------------------------------------------
-    | *index():   Listar recursos
-    | *create():  Mostrar el formulario para crear un recurso
-    | *store():   Guardar el recurso en la base de datos
-    | *show():    Mostrar un recurso específico mediante el $id
-    | *edit():    Mostrar el formulario para editar un recurso específico mediante el $id
-    | *update():  Actualizar un recurso específico mediante el $id
-    | *destroy(): Eliminar un recurso específico mediante el $id
-    | ------------------------------------------------------------------------------------
-*/
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+/* 
+    | -------------------------------------------------------------
+    | *Se debe importar la clase Db si se quiere usar Query Builder
+    | -------------------------------------------------------------
+*/
+// use Illuminate\Support\Facades\DB; /* No se va a usar pero funciona */
+
+/* 
+    | ------------------------------------------------------
+    | *Se debe importar el modelo si se quiere usar Eloquent
+    | ------------------------------------------------------
+*/
+use App\Project;
+/*  */
 
 class PortfolioController extends Controller
 {
@@ -25,88 +27,73 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        /*  */
-        $portfolio = [
-            ['title' => 'Proyecto #1'],
-            ['title' => 'Proyecto #2'],
-            ['title' => 'Proyecto #3'],
-            ['title' => 'Proyecto #4'],
-        ];
+        /* 
+            | ---------------------------------------------------------------------------------
+            | *Obtiene todos los registros de la tabla Projects usando Query Builder de Laravel
+            |   *Funciona pero se uso una forma distinta
+            | ---------------------------------------------------------------------------------
+        */
+        // $portfolio = DB::table('projects')->get();
 
-        return view('portfolio', compact('portfolio'));
-        /*  */
+        /* 
+            | -----------------------------------------------------------------
+            | *Obtiene todos los registros de la tabla Projects usando Eloquent
+            |   *Funciona pero se uso una forma distinta
+            | -----------------------------------------------------------------
+        */
+        // $portfolio = Project::get();
+
+        /* 
+            | ---------------------------------------------------------------------------------------
+            | *Obtiene todos los registros ordenados de forma descendente mediante id usando Eloquent
+            |   *Funciona pero se uso una forma distinta
+            | ---------------------------------------------------------------------------------------
+        */
+        // $portfolio = Project::latest('id')->get();
+
+        /* 
+            | -----------------------------------------------------------------------------------------------
+            | *Obtiene todos los registros ordenados de forma descendente mediante updated_at usando Eloquent
+            |   *Funciona pero se uso una forma distinta
+            | -----------------------------------------------------------------------------------------------
+        */
+        // $portfolio = Project::latest('updated_at')->get();
+
+        /* 
+            | --------------------------------------------------------------------------------------------
+            | *Obtiene todos los registros ordenados de forma descendente y con paginación usando Eloquent
+            |   *Funciona pero se uso una forma distinta
+            | --------------------------------------------------------------------------------------------
+        */
+        // $projects = Project::latest()->paginate();
+
+        /* 
+            | ----------------------------------------------------------------------
+            | *Retorna una vista y la variable $projects usando la función compact()
+            |   *Funciona pero se uso una forma distinta
+            | ----------------------------------------------------------------------
+        */
+        // return view('portfolio', compact('projects'));
+
+        /* 
+            | ----------------------------------------------------------------
+            | *Retorna una vista y la variable $projects usando un array 
+            |  ordenados de forma descendente y con paginación usando Eloquent
+            | ----------------------------------------------------------------
+        */
+        return view('portfolio', [
+            'projects' => Project::latest()->paginate()
+        ]);
+
     }
-
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
 }
 
 /* Notas:
-    | ------------------------
-    | *Nota: Se comentaron las 6 funciones REST (create, store, show, edit, update y destroy) porque no se van a usar
-    |  *Se dejaron como referencia
-    | ------------------------
+    | -----------------------------------------------------------------------------------------------------------------------------
+    | *ORM Eloquent: Object-Relational-Mapping | Mapeo de Objetos Relacional
+    | *Eloquent Active Record: Agrega los métodos Http: save(), update(), delete(), etc, que no existen en los navegadores actuales
+    | *El método paginate() por defecto muestra 15 registros, si desea cambiar debe colocar un número
+    |   *Ejemplo: ->paginate(2); Muestra 2 sólo 2 registros por página
+    | *Si paginate() se deja vacío y hay menos de 15 registros en la tabla, en la vista no se muestran los botones de paginación
+    | -----------------------------------------------------------------------------------------------------------------------------
 */

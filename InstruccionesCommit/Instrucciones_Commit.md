@@ -4,98 +4,51 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Qué son y cómo se utilizan las migraciones__
+### Commit | __Eloquent: Obtener registros de la base de datos__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Database: Migrations`](https://laravel.com/docs/5.7/migrations#introduction)
+[Documentación | `Database: Query Builder`](https://laravel.com/docs/5.7/queries)
 
-[Documentación | `Columns`](https://laravel.com/docs/5.7/migrations#columns)
+[Documentación | `Database: Pagination`](https://laravel.com/docs/5.7/pagination)
+
+[Documentación | `Eloquent: Getting Started`](https://laravel.com/docs/5.7/eloquent)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición del archivo de migración `database\migrations\2014_10_12_000000_create_users_table.php`
-2. Creación y edición del archivo de migración `database\migrations\2020_04_18_025856_add_phone_to_users_table.php`
-    > php artisan make:migration add_phone_to_users_table --table=users
+1. Insertar unos cuantos registros en la tabla projects de la base de datos con fechas descendentes en created_at
+2. Edición del controlador `app\Http\Controllers\PortfolioController.php`
+   - Edición de la función `index()` 
 
-    **Migración que agrega un campo string('phone´)->nullable*
-3. Creación y edición de la migración `database\migrations\2020_04_18_025856_create_projects_table.php`
-4. Eliminación de la migración `database\migrations\2020_04_18_025856_add_phone_to_users_table.php`
+     **No olvidar importar `use Illuminate\Support\Facades\DB;` si se usa query builder*
 
-    **Esta migración fue para practicar, pero aquí abajo se muestra lo importante*
-
-    **`$table->string('phone')->default('valorPorDefecto');` Por si se quiere crear un campo con valor predefinido*
-
-    **`$table->string('phone')->nullable();` Por si se quiere crear un campo que permita valores nulos*
-
-    **`$table->string('phone')->nullable()->after('email');` Por si se quiere crear un campo que permita valores nulos y colocar después de algún campo en particular*
-
-    **`$table->dropColumn('phone');` Revierte la creación de la columna `phone`*
-5. Refrescamos la base de datos
-    > php artisan migrate:fresh
+     **No olvidar importar `use App\Project;` si se usa Eloquent y el modelo específico (Project en este caso)*
+     
+3. Edición de la vista `resources\views\portfolio.blade.php`
+4. Creación y edición del modelo `app\Project.php`
+    > php artisan make:model Project
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
-  - Las migraciones son un Control de versiones de la base de datos
-  - Permite crear y modificar fácilmente las tablas
-  - Permite destruir y reconstruir el esquema de la base de datos
-  - Por defecto laravel incluye 2 migraciones y están en `database\migrations`
-    - `database\migrations\2014_10_12_000000_create_users_table.php`
-    - `database\migrations\2014_10_12_100000_create_password_resets_table.php`
+  - Para crear un modelo junto a su migración
+     > php artisan make:model nombreModelo -m
 
-    **Las migraciones por defecto varían dependiedo la versión de Laravel*
-  - El nombre de la migración incluye la fecha de creación seguido por la acción que realiza
-      - `2014_10_12_000000_create_users_table.php`
-          - Dónde `2014_10_12_000000` es la fecha en que fue creada la migración
-          - Dónde `create_users_table.php` es la acción de la migración (crear una tabla llamada usuarios)
-  - Para ejecutar las migraciones
-    > php artisan migrate
-  - Para revertir cambios de una base de datos
-    > php artisan migrate:rollback
+    **Laravel crea la migración a partir del nombre del modelo*
+  - Convenciones o estándares al crear Modelos en Laravel:
+     - El nombre debe ser en singular y su primer letra sea en mayúscula o letra capital
+     - Si lleva 2 o más palabras deberán separarse por mayúsculas mejor conocido como CamelCase y sin espacios
 
-     **Depende del número que se encuentre en la tabla `migrations` de la base de datos y en su campo `batch` para regresar un número anterior*
-
-     **Ejemplo: si en batch existe un o varios 3, rollback quitara cualquier migración con batch=3</em>*
-  - Para revertir ciertos pasos (steps) hacía atrás
-    > php artisan migrate:rollback --steep=nSteps
-
-      **Dónde nSteps debe ser el número de pasos hacía atrás que se quieran hacer*
-
-      **Ejemplo: `php artisan migrate:rollback --steep=1`*
-  - Para quitar todas las tablas y volver a ejecutar las migraciones
-    > php artisan migrate:fresh
-
-      **Este comando es destructivo ya que elimina toda la información de las tablas*
-  - Para crear una migración
-    > php artisan migration nombreMigracion
-
-      **El nombreMigracion debe especificar para que es la migración*
-
-      **Ejemplo: `create_categories_table` laravel automáticamente agrega la fecha a la migración*
-
-      **Ejemplo: `add_phone_to_users_table` laravel automáticamente agrega la fecha a la migración*
-
-       > php artisan migration nombreMigracion --create=nuevaTabla
-
-      **El nombreMigracion debe especificar para que es la migración*
-
-      **Ejemplo: `create_categories_table` laravel automáticamente agrega la fecha a la migración*
-
-      **Ejemplo: `add_phone_to_users_table --create=nuevaTabla` laravel automáticamente agrega la fecha a la migración, por si queremos que laravel nos ayude con un poco de código al crear la nueva migración para una tabla nueva*
-
-       > php artisan migration nombreMigracion --create=nuevaTabla
-
-      **Ejemplo: <code>add_phone_to_users_table --table=tablaExistente</code> laravel automáticamente agrega la fecha a la migración, por si queremos que laravel nos ayude con un poco de código al crear la nueva migración para una tabla existente*
-
-       > php artisan migration nombreMigracion --table=tabla
-  - Para usar funciones de las migraciones para SQLite u otras cosas [Ver ayuda](https://stackoverflow.com/questions/22413408/install-dependency-doctrine-dbal-on-composer-laravel)
+       **Ejemplo: `MyModel`*
+  - Librería de PHP incluída en Laravel que permite formatear fechas [Documentación de `Carbon`](https://carbon.nesbot.com/)
 <!-- end notes -->
 ===
 <!-- information -->
 #### Información
-**Más información en `database\migrations\2014_10_12_000000_create_users_table.php`*
+**Más información en `app\Http\Controllers\PortfolioController.php`*
 
-**Más información en `database\migrations\2020_04_18_025856_create_projects_table.php`*
+**Más información en `resources\views\portfolio.blade.php`*
+
+**Más información en `app\Project.php`*
 <!-- end information -->
