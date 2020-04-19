@@ -43,7 +43,6 @@ class ProjectController extends Controller
         /* 
             | -----------------------------------------------------------------------------------------------------------------
             | *Retorna la vista projects.show y le pasa la variable 'project'
-            | *El id es obtenido a tráves de la ruta
             | 'project' => $project La variable $project se obtiene usando Model Binding - public function show(Project $project)
             | -----------------------------------------------------------------------------------------------------------------
         */
@@ -71,95 +70,6 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
        /* 
-          | -----------------------------------------------------------------------------
-          | *Retorna todos los valores de los elementos HTML que tengan la propiedad name
-          | *public function store() así queda la función
-          | -----------------------------------------------------------------------------
-       */
-       // return request();
-
-
-       /* 
-          | ----------------------------------------------------------------------------
-          | *Retorna el valor específico de un elemento HTML que tenga la propiedad name
-          | *public function store() así queda la función
-          | ----------------------------------------------------------------------------
-       */
-       // return request('title');
-
-
-       /* 
-          | ---------------------------------------------------------------------
-          | *todos los valores de los elementos HTML que tengan la propiedad name
-          | *public function store(Request $request) así queda la función
-          | ---------------------------------------------------------------------
-       */
-       // return $request;
-
-
-       /* 
-          | ----------------------------------------------------------------------------
-          | *Retorna el valor específico de un elemento HTML que tenga la propiedad name
-          | *public function store(Request $request) así queda la función
-          | ----------------------------------------------------------------------------
-       */
-       // return $request->get('title);
-
-
-       /* 
-          | --------------------------------------------------------------------------------------
-          | *Se guardan en variables los valores de los elementos HTML que tenga la propiedad name
-          | *public function store() así queda la función
-          | *Project::create([]) Se crean los registros en la base de datos
-          | --------------------------------------------------------------------------------------
-       */
-        // $title          = request('title');
-        // $url            = request('url');
-        // $description    = request('description');
-
-        // Project::create([
-        //  'title'         => $title,
-        //  'url'           => $url,
-        //  'description'   => $description,
-        // ]);
-
-
-       /* 
-          | ---------------------------------------------------------------------------------------------------------------------------------
-          | *Se obtienen los valores de los elementos HTML que tenga la propiedad name: title, url y description
-          | *public function store() así queda la función
-          | *Al intentar mandar el formulario se muestra un error con MassAssignment(Asignación masiva) 
-          |   *Para solucionarlo debe usar la propiedad $fillable en el modelo Project - Más información en app\Project.php
-          | *Project::create([]) Se crean los registros en la base de datos
-          | ---------------------------------------------------------------------------------------------------------------------------------
-       */
-        // return Project::create([
-        //     'title'         => request('title'),
-        //     'url'           => request('url'),
-        //     'description'   => request('description'),
-        // ]);
-
-
-       /* 
-          | ---------------------------------------------------------------------------------------------------------------------------------
-          | *Se obtienen los valores de los elementos HTML que tenga la propiedad name: title, url y description
-          | *public function store() así queda la función
-          | *Al intentar mandar el formulario se muestra un error con MassAssignment(Asignación masiva) 
-          |   *Para solucionarlo debe usar la propiedad $fillable en el modelo Project - Más información en app\Project.php
-          | *Project::create([]) Se crean los registros en la base de datos
-          | *Si se guarda el proyecto éxitosamente en la base de datos se redirije a la ruta con nombre 'projects.index'
-          | ---------------------------------------------------------------------------------------------------------------------------------
-       */
-        // Project::create([
-        //     'title'         => request('title'),
-        //     'url'           => request('url'),
-        //     'description'   => request('description'),
-        // ]);
-
-        // return redirect()->route('projects.index');
-
-
-       /* 
           | ----------------------------------------------------------------------------------------------------------------------------------
           | *Si los elementos HTML en su propiedad name y los campos de la base de datos tienen el mismo nombre se puede usar request()->all()
           |   *Sólo los campos que estén en la propiedad $fillable en el modelo Project (app\Project.php) se guardarán en la base de datos
@@ -170,8 +80,51 @@ class ProjectController extends Controller
           | *Si se guarda el proyecto éxitosamente en la base de datos se redirije a la ruta con nombre 'projects.index'
           | ----------------------------------------------------------------------------------------------------------------------------------
        */
-        Project::create(request()->all());
+        // Project::create(request()->all());
+
+        // return redirect()->route('projects.index');
+
+
+        /* 
+            | ---------------------------------------------------------------------------
+            | *Si se deshabilita la protyección contra asignación masiva(mass assignment)
+            |   *Se debe evitar usar request()->all()
+            |   *Se debe usar usar request()->only()
+            | ---------------------------------------------------------------------------
+            | *request->only() Se deben incluir los campos donde se quiere guardar
+        */
+        // return request()->only('title', 'url', 'description');
+        // Project::create(request()->only('title', 'url', 'description'));
+
+        // return redirect()->route('projects.index');
+
+
+        /* 
+            | -------------------------------------------------------------------------
+            | *Si se deshabilita la protección contra asignación masiva(mass asignment)
+            |   *Se deben validar los campos
+            |   *Se pasan los campos validados a Project::create()
+            |   *Se redirecciona a la ruta con nombre 'projects.index'
+            | -------------------------------------------------------------------------
+        */
+        $fields = request()->validate([
+            'title'         => 'required',
+            'url'           => 'required',
+            'description'   => 'required',
+        ]);
+
+        Project::create($fields);
 
         return redirect()->route('projects.index');
     }
 }
+
+/* Notas:
+    | --------------------------------------------------------------------------------------------------------------------------------------------------------
+    | *Supongamos que tenemos un campo 'approved' => true que guardará si el proyecto fue aprobado y sólo se va a publicar si el campo es true(verdadero),
+    |  de alguna manera un usuario malintencionado se entra que existe un campo 'approved' y modifica de false a true
+    |   *Se puede hacer inspeccionado el elemento desde el navegador (click derecho + inspeccionar elemento)
+    |   *Crea un elemento html con la propiedad name="approved" con valor 1 asumiendo que el campo es boolean (verdadero o falso)
+    | *Al usar protección contra asignación masiva (mass asignment) se evita que el usuario malintencionado cree campos que no estén en la propiedad $fillable
+    | --------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
