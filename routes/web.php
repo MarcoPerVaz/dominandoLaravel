@@ -1,14 +1,6 @@
 <?php
 
 /* 
-    | -----------------------------------------------------------------------------------------------------------
-    | *Si desea cambiar 'locale' => 'es', a 'locale' => 'en', sin necesidad de abrir el archivo config\app.php
-    | *Nota: Se puso entre comentarios porque no se usa pero funciona
-    | -----------------------------------------------------------------------------------------------------------
-*/
-// App::setLocale('en');
-
-/* 
     | -------------------------------------------
     | 3 Rutas básicas con función view() y nombre
     | url: /
@@ -22,15 +14,25 @@ Route::view('/contact', 'contact')->name('contact');
 
 /* 
     | -----------------------------------------------------------------------
-    | *Ruta básica asociada a la función index() del controlador PortfolioController
+    | *Se cambia el nombre del controlador PortfolioController.php por ProjectController.php
+    | *Ruta básica asociada a la función index() del controlador ProjectController
     | -----------------------------------------------------------------------
 */
-Route::get('/portfolio', 'PortfolioController@index')->name('portfolio');
+Route::get('/portfolio', 'ProjectController@index')->name('projects.index');
 
 /* 
     | -----------------------------------------------------------------------
-    | *Ruta básica asociada a la función store() del controlador MessagesController
+    | *Se cambia el nombre del controlador PortfolioController.php por ProjectController.php
+    | *Ruta básica asociada a la función show() del controlador ProjectController
     | -----------------------------------------------------------------------
 */
-Route::post('/contact', 'MessagesController@store');
+Route::get('/portfolio/{id}', 'ProjectController@show')->name('projects.show');
+
+/* 
+    | -----------------------------------------------------------------------
+    | *Se cambia el nombre del controlador MessagesController.php por MessageController.php
+    | *Ruta básica asociada a la función store() del controlador MessageController
+    | -----------------------------------------------------------------------
+*/
+Route::post('/contact', 'MessageController@store');
 

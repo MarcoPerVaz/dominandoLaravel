@@ -4,51 +4,55 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Eloquent: Obtener registros de la base de datos__
+### Commit | __Eloquent: Obtener registros individuales__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
 [Documentación | `Database: Query Builder`](https://laravel.com/docs/5.7/queries)
 
-[Documentación | `Database: Pagination`](https://laravel.com/docs/5.7/pagination)
-
 [Documentación | `Eloquent: Getting Started`](https://laravel.com/docs/5.7/eloquent)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Insertar unos cuantos registros en la tabla projects de la base de datos con fechas descendentes en created_at
-2. Edición del controlador `app\Http\Controllers\PortfolioController.php`
-   - Edición de la función `index()` 
+1. Edición del archivo de rutas `routes\web.php`
+2. Creación del directorio `resources\views\projects`
+   - Creación y edición de la vista `resources\views\projects\index.blade.php`
+       - Se corta todo el contenido de la vista `resources\views\portfolio.blade.php` y se pega en `resources\views\projects\index.blade.php`
+   - Creación y edición de la vista `resources\views\projects\show.blade.php`
+3. Eliminación de la vista `resources\views\portfolio.blade.php`
+4. Creación del directorio `resources\views\errors`
+   - Creación y edición de la vista `resources\views\errors\404.blade.php`
+5. Renombrar el controlador `app\Http\Controllers\PortfolioController.php` por `app\Http\Controllers\ProjectController.php`
+    - Cambiar el nombre de la clase `class PortfolioController extends Controller` por `class ProjectController extends Controller`
 
-     **No olvidar importar `use Illuminate\Support\Facades\DB;` si se usa query builder*
+    **La convención en el nombre de los controladores es que lleve el nombre del modelo seguido por la palabra Controller ejemplo: `ProjectController`*
+6. Edición del controlador `app\Http\Controllers\ProjectController.php`
+    - Edición de la función `index()`
+    - Creación y edición de la función `show($id)`
+7. Renombrar el controlador `app\Http\Controllers\MessagesController.php` por `app\Http\Controllers\MessageController.php`
+    - Cambiar el nombre de la clase `class MessagesController extends Controller` por `class MessageController extends Controller`
 
-     **No olvidar importar `use App\Project;` si se usa Eloquent y el modelo específico (Project en este caso)*
-     
-3. Edición de la vista `resources\views\portfolio.blade.php`
-4. Creación y edición del modelo `app\Project.php`
-    > php artisan make:model Project
+    **La convención en el nombre de los controladores es que lleve el nombre del modelo seguido por la palabra Controller ejemplo: `MessageController`*
+8. Edición de la vista `resources\views\partials\nav.blade.php`
+9. Edición del archivo de idioma `resources\lang\es.json`
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
-  - Para crear un modelo junto a su migración
-     > php artisan make:model nombreModelo -m
+  - El directorio `resources\views\errors` va a contener todas las vistas para los errores regresados por Laravel o por el navegador
 
-    **Laravel crea la migración a partir del nombre del modelo*
-  - Convenciones o estándares al crear Modelos en Laravel:
-     - El nombre debe ser en singular y su primer letra sea en mayúscula o letra capital
-     - Si lleva 2 o más palabras deberán separarse por mayúsculas mejor conocido como CamelCase y sin espacios
+     **Ejemplo: Sorry, the page you are looking for could not be found. que es un error 404 not found*
 
-       **Ejemplo: `MyModel`*
-  - Librería de PHP incluída en Laravel que permite formatear fechas [Documentación de `Carbon`](https://carbon.nesbot.com/)
+     **El mensaje anterior es sustítuido por la vista `resources\views\errors\404.blade.php`*
+  - La convención en el nombre de los controladores es que lleve el nombre del modelo seguido por la palabra Controller ejemplo: `ProjectController`
 <!-- end notes -->
 ===
 <!-- information -->
 #### Información
-**Más información en `app\Http\Controllers\PortfolioController.php`*
+**Más información en `app\Http\Controllers\ProjectController.php`*
 
-**Más información en `resources\views\portfolio.blade.php`*
+**Más información en `resources\views\projects\index.blade.php`*
 
-**Más información en `app\Project.php`*
+**Más información en `resources\views\projects\show.blade.php`*
 <!-- end information -->
