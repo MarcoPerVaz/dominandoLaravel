@@ -4,13 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 /* 
-    | -------------------------------------------------------------
-    | *Se debe importar la clase Db si se quiere usar Query Builder
-    | -------------------------------------------------------------
-*/
-// use Illuminate\Support\Facades\DB; /* No se va a usar pero funciona */
-
-/* 
     | ------------------------------------------------------
     | *Se debe importar el modelo si se quiere usar Eloquent
     | ------------------------------------------------------
@@ -41,64 +34,52 @@ class ProjectController extends Controller
     /* 
         | ------------------------------------------------
         | *Muestra la información de un proyecto existente
+        | *Laravel por defecto obtiene el registro mediante el id 
+        |   *Por defecto $id y se pasa cómo parámetro - public function show($id)
+        |   *Usando Model Binding Project $project - public function show(Project $project)
         | ------------------------------------------------
     */
-    public function show($id)
+    public function show(Project $project)
     {
         /* 
-            | ---------------------------------------------------------------
-            | *Retorna el id del proyecto, esto es posible gracias a Eloquent
-            | ---------------------------------------------------------------
+            | ------------------------------------------------------------
+            | *Devuelve todos los campos del modelo Project mediante el id
+            |   *public function show($id)
+            | ------------------------------------------------------------
         */
         // return $id;
 
         /* 
-            | ------------------------------------------------------------------------------------
-            | *Retorna todos los campos del proyecto con el $id , esto es posible gracias Eloquent
-            | *Project::find($id) significa Eloquent encuentra el proyecto con el id
-            | *El id es obtenido a tráves de la ruta
-            | ------------------------------------------------------------------------------------
+            | -----------------------------------------------------------------------
+            | *Devuelve todos los campos del modelo Project a tráves de Model Binding
+            |   *public function show(Project $project)
+            | -----------------------------------------------------------------------
         */
-        // return $project = Project::find($id);
+        // return $project;
 
         /* 
-            | ----------------------------------------------------------------------
-            | *Guarda toda la información del proyecto en la variable $project
-            | *Project::find($id) significa Eloquent encuentra el proyecto con el id
-            | *El id es obtenido a tráves de la ruta
-            | ----------------------------------------------------------------------
-        */
-        // $project = Project::find($id);
-
-        /* 
-            | ----------------------------------------------------------------------
+            | -----------------------------------------------------------------------------------------------------------------
             | *Retorna la vista projects.show y le pasa la variable 'project'
-            | *Project::find($id) significa Eloquent encuentra el proyecto con el id
             | *El id es obtenido a tráves de la ruta
-            | ----------------------------------------------------------------------
-        */
-        // return view('projects.show', [
-        //     'project' => Project::find($id)
-        // ]);
-
-        /* 
-            | -----------------------------
-            | *Retorna la vista projects.show y le pasa la variable 'project'
-            | *Project::find($id) significa Eloquent encuentra el proyecto con el id
-            | *El id es obtenido a tráves de la ruta
+            | *Project::find($id) significa Eloquent encuentra el proyecto con el id - public function show($id)
             | *findOrFail() sirve para cuando se busca un proyecto con un id que no existe
-            | -----------------------------
+            | *'project' => $id, Laravel por defecto obtiene un registro individual a tráves del id - public function show($id)
+            | 'project' => $project La variable $project se obtiene usando Model Binding - public function show(Project $project)
+            | -----------------------------------------------------------------------------------------------------------------
         */
         return view('projects.show', [
-            'project' => Project::findOrFail($id)
+            // 'project' => Project::findOrFail($id)
+            // 'project' => $id,
+            'project' => $project
         ]);
 
     }
 }
 
+
 /* Notas:
     | -----------------------------------------------------------------------------------------------------------------------------
-    | *Laravel convierte automáticamente a JSON al realizar un return de variables
-    |   *Ejemplo return $project
+    | *Para usar Route Model Binding basta con inyectar el modelo como parámetro en la función
+    |   *Ejemplo: public function show(Project $project)
     | -----------------------------------------------------------------------------------------------------------------------------
 */

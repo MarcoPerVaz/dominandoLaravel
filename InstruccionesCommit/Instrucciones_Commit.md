@@ -4,55 +4,39 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Eloquent: Obtener registros individuales__
+### Commit | __Route model binding - URLs amigables__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Database: Query Builder`](https://laravel.com/docs/5.7/queries)
-
-[Documentación | `Eloquent: Getting Started`](https://laravel.com/docs/5.7/eloquent)
+[Documentación | `Route Model Binding`](https://laravel.com/docs/5.7/routing#route-model-binding)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición del archivo de rutas `routes\web.php`
-2. Creación del directorio `resources\views\projects`
-   - Creación y edición de la vista `resources\views\projects\index.blade.php`
-       - Se corta todo el contenido de la vista `resources\views\portfolio.blade.php` y se pega en `resources\views\projects\index.blade.php`
-   - Creación y edición de la vista `resources\views\projects\show.blade.php`
-3. Eliminación de la vista `resources\views\portfolio.blade.php`
-4. Creación del directorio `resources\views\errors`
-   - Creación y edición de la vista `resources\views\errors\404.blade.php`
-5. Renombrar el controlador `app\Http\Controllers\PortfolioController.php` por `app\Http\Controllers\ProjectController.php`
-    - Cambiar el nombre de la clase `class PortfolioController extends Controller` por `class ProjectController extends Controller`
+1. Edición del controlador `app\Http\Controllers\ProjectController.php`
+    - Edición de la función `show($id)`
+2. Edición del archivo de rutas `routes\web.php`
+3. Edición del modelo `app\Project.php`
+4. Edición de la migración `database\migrations\2020_04_18_025856_create_projects_table.php`
+    
+    **Se agregó el campo 'url' para usar rutas amigables*
 
-    **La convención en el nombre de los controladores es que lleve el nombre del modelo seguido por la palabra Controller ejemplo: `ProjectController`*
-6. Edición del controlador `app\Http\Controllers\ProjectController.php`
-    - Edición de la función `index()`
-    - Creación y edición de la función `show($id)`
-7. Renombrar el controlador `app\Http\Controllers\MessagesController.php` por `app\Http\Controllers\MessageController.php`
-    - Cambiar el nombre de la clase `class MessagesController extends Controller` por `class MessageController extends Controller`
-
-    **La convención en el nombre de los controladores es que lleve el nombre del modelo seguido por la palabra Controller ejemplo: `MessageController`*
-8. Edición de la vista `resources\views\partials\nav.blade.php`
-9. Edición del archivo de idioma `resources\lang\es.json`
+5. Se recreó la base de datos **(sólo hacerlo en entorno de desarrollo)**
+    > php artisan migrate:fresh
+6. Se crean registros de forma manual en la tabla projects de la base de datos
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
-  - El directorio `resources\views\errors` va a contener todas las vistas para los errores regresados por Laravel o por el navegador
-
-     **Ejemplo: Sorry, the page you are looking for could not be found. que es un error 404 not found*
-
-     **El mensaje anterior es sustítuido por la vista `resources\views\errors\404.blade.php`*
-  - La convención en el nombre de los controladores es que lleve el nombre del modelo seguido por la palabra Controller ejemplo: `ProjectController`
 <!-- end notes -->
 ===
 <!-- information -->
 #### Información
 **Más información en `app\Http\Controllers\ProjectController.php`*
 
-**Más información en `resources\views\projects\index.blade.php`*
+**Más información en `routes\web.php`*
 
-**Más información en `resources\views\projects\show.blade.php`*
+**Más información en `app\Project.php`*
+
+**Más información en `database\migrations\2020_04_18_025856_create_projects_table.php`*
 <!-- end information -->

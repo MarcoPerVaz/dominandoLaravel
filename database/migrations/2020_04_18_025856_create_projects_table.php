@@ -18,10 +18,13 @@ class CreateProjectsTable extends Migration
             /*
                 | --------------------------------
                 | *Campo 'title' de tipo varchar
+                | *Campo 'url' de tipo varchar
+                |   *El campo 'url' es para usar rutas amigables en la URL del navegador, también se le conoce como Slug
                 | *Campo 'description' de tipo text
                 | --------------------------------
             */
             $table->string('title');
+            $table->string('url')->unique();
             $table->text('description');
 
             /* 
