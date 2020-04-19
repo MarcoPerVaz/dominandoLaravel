@@ -20,6 +20,20 @@ Route::view('/contact', 'contact')->name('contact');
 Route::get('/portfolio', 'ProjectController@index')->name('projects.index');
 
 /* 
+    | -----------------------------------------------------------------------------
+    | *Ruta básica asociada a la función create() del controlador ProjectController
+    | -----------------------------------------------------------------------------
+*/
+Route::get('/portfolio/crear', 'ProjectController@create')->name('projects.create');
+
+/* 
+    | ----------------------------------------------------------------------------
+    | *Ruta básica asociada a la función store() del controlador ProjectController
+    | ----------------------------------------------------------------------------
+*/
+Route::post('/portfolio/crear', 'ProjectController@store')->name('projects.store');
+
+/* 
     | -----------------------------------------------------------------------------------
     | *Ruta básica asociada a la función show() del controlador ProjectController
     | *El parámetro de la ruta debe ser igual al parámetro de la función
@@ -32,6 +46,8 @@ Route::get('/portfolio/{project}', 'ProjectController@show')->name('projects.sho
 
 /* 
     | ---------------------------------------------------------------------------
+    | *El orden de las rutas es importante
+    |   *Laravel lee las rutas de arriba hacía abajo
     | *Ruta básica asociada a la función store() del controlador MessageController
     | ---------------------------------------------------------------------------
 */
@@ -40,10 +56,7 @@ Route::post('/contact', 'MessageController@store');
 
 /* Notas:
     | -------------------------------------------------------------------------------------
-    | *El parámetro de la ruta debe llamarse igual que el paramétro de la función
-    |   *Route::get('/portfolio/{project}', - Ruta
-    |   *public function show(Project $project) - Función del controlador ProjectController
-    |       *Ejemplo: {project} = $project
+    | *Para guardar registros se utiliza el método Http POST
     | -------------------------------------------------------------------------------------
 */
 

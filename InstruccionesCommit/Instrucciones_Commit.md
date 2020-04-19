@@ -4,25 +4,25 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Route model binding - URLs amigables__
+### Commit | __Eloquent: Insertar registros__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Route Model Binding`](https://laravel.com/docs/5.7/routing#route-model-binding)
+[Documentación | `Inserting & Updating Models`](https://laravel.com/docs/5.7/eloquent#inserts)
+
+[Documentación | `CSRF Protection`](https://laravel.com/docs/5.7/csrf#csrf-introduction)
+
+[Documentación | `Mass Assignment`](https://laravel.com/docs/5.7/eloquent#mass-assignment)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición del controlador `app\Http\Controllers\ProjectController.php`
-    - Edición de la función `show($id)`
+1. Creación y edición de la vista `resources\views\projects\create.blade.php`
 2. Edición del archivo de rutas `routes\web.php`
-3. Edición del modelo `app\Project.php`
-4. Edición de la migración `database\migrations\2020_04_18_025856_create_projects_table.php`
-    
-    **Se agregó el campo 'url' para usar rutas amigables*
-
-5. Se recreó la base de datos **(sólo hacerlo en entorno de desarrollo)**
-    > php artisan migrate:fresh
-6. Se crean registros de forma manual en la tabla projects de la base de datos
+3. Edición del controlador `app\Http\Controllers\ProjectController.php`
+    - Creación de la función `create()`
+    - Creación de la función `store()`
+4. Edición del modelo `app\Project.php`
+5. Edición de la vista `resources\views\projects\index.blade.php`
 <!-- end commit instructions -->
 ===
 <!-- notes -->
@@ -32,11 +32,9 @@
 ===
 <!-- information -->
 #### Información
-**Más información en `app\Http\Controllers\ProjectController.php`*
+**Más información en `resources\views\projects\create.blade.php`*
 
 **Más información en `routes\web.php`*
 
 **Más información en `app\Project.php`*
-
-**Más información en `database\migrations\2020_04_18_025856_create_projects_table.php`*
 <!-- end information -->

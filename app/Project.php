@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     /* 
+        | ----------------------------------
+        | *MassAsignment - Asignación masiva
+        | ----------------------------------
+    */
+    protected $fillable = ['title', 'url', 'description'];
+
+
+    /* 
         | -------------------------------------------------------------------------------
         | *La función getRouteKeyName() permite usar URL's amigables 
         |   *En lugar de retornael id se puede retornar cualquier otro campo en la tabla
@@ -30,7 +38,7 @@ class Project extends Model
 
 /* 
     | ------------------------
-    | *La función getRouteKeyName() sobreescribe a la función original usada por el framework que retorna el campo 'id' por lo 
-    |  que sobreescribiendolo se puede retornar cualquier otro campo de la tabla.
+    | *Documentación: https://laravel.com/docs/5.5/eloquent#mass-assignment
+    | *Asignación masiva permite indicarle a Laravel que campos van a guardarse en la base de datos y evitar que otros campos puedan manipularse por terceros
     | ------------------------
 */
