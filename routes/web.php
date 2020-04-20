@@ -27,6 +27,21 @@ Route::get('/portfolio', 'ProjectController@index')->name('projects.index');
 Route::get('/portfolio/crear', 'ProjectController@create')->name('projects.create');
 
 /* 
+    | -----------------------------------------------------------------------------
+    | *Ruta básica asociada a la función edit() del controlador ProjectController
+    | -----------------------------------------------------------------------------
+*/
+Route::get('/portfolio/{project}/editar', 'ProjectController@edit')->name('projects.edit');
+
+/* 
+    | -----------------------------------------------------------------------------
+    | *Ruta básica asociada a la función update() del controlador ProjectController
+    | *Se puede usar el método HTTP: PUT o PATCH para actualizar un proyecto
+    | -----------------------------------------------------------------------------
+*/
+Route::patch('/portfolio/{project}', 'ProjectController@update')->name('projects.update');
+
+/* 
     | ----------------------------------------------------------------------------
     | *Ruta básica asociada a la función store() del controlador ProjectController
     | ----------------------------------------------------------------------------
@@ -45,18 +60,23 @@ Route::post('/portfolio/crear', 'ProjectController@store')->name('projects.store
 Route::get('/portfolio/{project}', 'ProjectController@show')->name('projects.show');
 
 /* 
-    | ---------------------------------------------------------------------------
+    | ----------------------------------------------------------------------------
     | *El orden de las rutas es importante
     |   *Laravel lee las rutas de arriba hacía abajo
     | *Ruta básica asociada a la función store() del controlador MessageController
-    | ---------------------------------------------------------------------------
+    | ----------------------------------------------------------------------------
 */
 Route::post('/contact', 'MessageController@store');
 
 
 /* Notas:
-    | -------------------------------------------------------------------------------------
+    | ------------------------------------------------------------------------------------------------------------------------------------
     | *Para guardar registros se utiliza el método Http POST
-    | -------------------------------------------------------------------------------------
+    | *Para actualizar un registro existente se puede usar el método HTTP: PUT o PATCH
+    |   *En el curso se mostró un error que daba información sobre error en el método, en la versión 5.5 de Laravel solo apareció el error
+    |       *No message
+    | *Los navegadores no soportan los métodos PUT, PATCH, DELETE
+    |   *Laravel tiene su mecanismo para poder usar este tipo de métodos HTTP
+    | ------------------------------------------------------------------------------------------------------------------------------------
 */
 

@@ -4,46 +4,44 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Qué son y como utilizar Form Requests__
+### Commit | __Eloquent: Actualizar registros__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Form Request Validation`](https://laravel.com/docs/5.7/validation#form-request-validation)
+[Documentación | `Updates`](https://laravel.com/docs/5.7/eloquent#updates)
 
-[Documentación | `Available Validation Rules`](https://laravel.com/docs/5.7/validation#available-validation-rules)
+[Documentación | `Form Method Spoofing`](https://laravel.com/docs/5.7/routing#form-method-spoofing)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Edición de la vista `resources\views\projects\create.blade.php`
-2. Creación y edición del formrequest `app\Http\Requests\CreateProjectRequest.php`
-    > php artisan make:request CreateProjectRequest
-
-    **Si el directorio `app\Http\Requests` no existe y se usa el comando, Laravel automáticamente creará el directorio*
-    - Edición de la función `authorize()`
-    - Edición de la función `rules()`
-    - Creación y edición de la función `messages()`
-
-      **Esta función es para personalizar los mensajes de validación*
+1. Edición de la vista `resources\views\projects\show.blade.php`
+2. Edición del archivo de rutas `routes\web.php`
 3. Edición del controlador `app\Http\Controllers\ProjectController.php`
-    - Edición de la función `store()`
 
-      **No olvidar importar use `App\Http\Requests\CreateProjectRequest;`*
+     **Se cambio `CreateFormRequest` por `SaveFormRequest`, **sólo hubo cambio de nombre***
+    - Edición de la función `store(CreateProjectRequest $request)`
+    - Creación y edición de la función `store(SaveProjectRequest $request)`
+    - Creación y edición de la función `update(Project $project, SaveProjectRequest $request)`
+4. Creación y edición de la vista `resources\views\projects\edit.blade.php`
+5. Renombrar `app\Http\Requests\CreateProjectRequest.php` por `app\Http\Requests\SaveProjectRequest.php`
+6. Edición del archivo form request `app\Http\Requests\SaveProjectRequest.php`
+    - Renombrar `class CreateProjectRequest extends FormRequest` por `class SaveProjectRequest extends FormRequest`
+7. Edición de la vista `resources\views\projects\create.blade.php`
 
-      **No olvidar inyectar el FormRequest en la función `store(CreateProjectRequest $request)`*
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
-  - Los `Form Requests` son clases dedicadas para encapsular la lógica de validación y autorización
-      - No son necesarios en aplicaciones pequeñas (se puede validar directamente en el controlador)
 <!-- end notes -->
 ===
 <!-- information -->
 #### Información
-**Más información en `resources\views\projects\create.blade.php`*
-
-**Más información en `app\Http\Requests\CreateProjectRequest.php`*
+**Más información en `resources\views\projects\show.blade.php`
+*
+**Más información en `routes\web.php`*
 
 **Más información en `app\Http\Controllers\ProjectController.php`*
+
+**Más información en `resources\views\projects\edit.blade.php`*
 <!-- end information -->

@@ -4,18 +4,27 @@
 @section('title', 'Portafolio | ' . $project->title)
 
 @section('content')
-  <h1>{{ $project->title }}</h1>
-  <p>{{ $project->description }}</p>
-  <p>{{ $project->created_at->diffForHumans() }}</p>
+
+  {{-- title --}}
+    <h1>{{ $project->title }}</h1>
+  {{-- end title --}}
+
+  {{-- btnEdit --}}
+    <a href="{{ route('projects.edit', $project) }}">Editar</a>
+  {{-- end btnEdit --}}
+
+  {{-- description --}}
+    <p>{{ $project->description }}</p>
+  {{-- end description --}}
+
+  {{-- created_at --}}
+    <p>{{ $project->created_at->diffForHumans() }}</p>
+  {{-- end created_at --}}
 @endsection
     
 
 {{-- Notas:
-      | ------------------------------------
-      | *{{ $project }} imprime todos los campos en formato json
-      | *{{ $project->nombreCampo }} colocando el nombre del campo se puede acceder a su información
-      |   *Ejemplo: {{ $project->title }} {{ $project->description }} {{ $project->created_at }}
-      | *{{ $project->created_at->diffForHumans() }} mostrar la fecha en formato para humanos
-      |   *Ejemplo: hace 2 semanas
-      | ------------------------------------  
+      | --------------------------------------------------------------------------------------------------------------------
+      | *route('projects.edit', $project) se pasa toda la instancia del modelo Project a la ruta con nombre 'projects.index'
+      | --------------------------------------------------------------------------------------------------------------------  
 --}}

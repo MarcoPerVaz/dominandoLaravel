@@ -27,7 +27,7 @@
       <label>
         Título del proyecto
         <br>
-        <input type="text" name="title">
+        <input type="text" name="title" value="{{ old('title') }}">
       </label>
     {{-- end title --}}
 
@@ -37,7 +37,7 @@
     <label>
       Descripción del proyecto
       <br>
-      <textarea type="text" name="description"></textarea>
+      <textarea type="text" name="description">{{ old('description') }}</textarea>
     </label>
     {{-- end description --}}
 
@@ -47,7 +47,7 @@
     <label>
       URL del proyecto
       <br>
-      <input type="text" name="url">
+      <input type="text" name="url" value="{{ old('url') }}">
     </label>
     {{-- end url --}}
 
@@ -61,8 +61,11 @@
 
 {{-- Notas:
       | ---------------------------------------------------------------
-      | *$errors->any() Verifica si hay errores
-      | *$errors->all() dentro de un foreache recorre todos los errores
-      | *$error Muestra el error en la vista
+      | *La directiva @csrf es una protección contra ataques csrf (cross-site request forgery)
+      |   *Documentación: https://laravel.com/docs/5.5/csrf#csrf-introduction
+      |     *Para laravel 5.5 se usa {{ csrf_field() }}
+      |   *Documentación: https://laravel.com/docs/5.7/csrf#csrf-introduction
+      |     *Para laravel 5.6 en adelante se usa la directiva @csrf
+      | *old('title') Sirve para que persistan los cambios en caso de actualizar el navegador
       | ---------------------------------------------------------------  
 --}}
