@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
     | ------------------------------------------------------
 */
 use App\Project;
+/* 
+    | ---------------------------------------------------------------------------
+    | *Se debe importar el FormRequest app\Http\Requests\CreateProjectRequest.php
+    | ---------------------------------------------------------------------------
+*/
+use App\Http\Requests\CreateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -28,7 +34,6 @@ class ProjectController extends Controller
         return view('projects.index', [
             'projects' => Project::latest()->paginate()
         ]);
-
     }
 
     /* 
@@ -53,9 +58,9 @@ class ProjectController extends Controller
     }
 
     /* 
-        | ------------------------------------------------
+        | ------------------------------------------------------------------------
         | *Retorna la vista que incluye el formulario para crear un nuevo proyecto
-        | ------------------------------------------------
+        | ------------------------------------------------------------------------
     */
     public function create(Project $project)
     {
@@ -63,68 +68,30 @@ class ProjectController extends Controller
     }
 
     /* 
-        | ------------------------------------------------
+        | -------------------------------------------------------------------------------
         | *Guarda el nuevo proyecto en la base de datos
-        | ------------------------------------------------
+        | *Debe inyectar como parámetro si desea usar el FormRequest CreateProjectRequest
+        |   *store(CreateProjectRequest $request)
+        | -------------------------------------------------------------------------------
     */
-    public function store(Request $request)
+    public function store(CreateProjectRequest $request)
     {
-       /* 
-          | ----------------------------------------------------------------------------------------------------------------------------------
-          | *Si los elementos HTML en su propiedad name y los campos de la base de datos tienen el mismo nombre se puede usar request()->all()
-          |   *Sólo los campos que estén en la propiedad $fillable en el modelo Project (app\Project.php) se guardarán en la base de datos
-          | *public function store() así queda la función
-          | *Al intentar mandar el formulario se muestra un error con MassAssignment(Asignación masiva) 
-          |   *Para solucionarlo debe usar la propiedad $fillable en el modelo Project - Más información en app\Project.php
-          | *Project::create([]) Se crean los registros en la base de datos
-          | *Si se guarda el proyecto éxitosamente en la base de datos se redirije a la ruta con nombre 'projects.index'
-          | ----------------------------------------------------------------------------------------------------------------------------------
-       */
-        // Project::create(request()->all());
-
-        // return redirect()->route('projects.index');
-
-
         /* 
-            | ---------------------------------------------------------------------------
-            | *Si se deshabilita la protyección contra asignación masiva(mass assignment)
-            |   *Se debe evitar usar request()->all()
-            |   *Se debe usar usar request()->only()
-            | ---------------------------------------------------------------------------
-            | *request->only() Se deben incluir los campos donde se quiere guardar
-        */
-        // return request()->only('title', 'url', 'description');
-        // Project::create(request()->only('title', 'url', 'description'));
-
-        // return redirect()->route('projects.index');
-
-
-        /* 
-            | -------------------------------------------------------------------------
+            | -------------------------------------------------------------------------------------------------------
+            | *La validación la hace el FormRequest CreateProjectRequest
+            |   *Tener en consideración si se tiene deshabilitada la protección de asignación masiva (mass asignment)
             | *Si se deshabilita la protección contra asignación masiva(mass asignment)
-            |   *Se deben validar los campos
+            |   *Se deben validar los campos obligatoriamente
             |   *Se pasan los campos validados a Project::create()
+            |     *$request->validated()
             |   *Se redirecciona a la ruta con nombre 'projects.index'
-            | -------------------------------------------------------------------------
+            | *return $request->validated(); Retorna los valores de los elementos HTML que tengan la propiedad name
+            | -------------------------------------------------------------------------------------------------------
         */
-        $fields = request()->validate([
-            'title'         => 'required',
-            'url'           => 'required',
-            'description'   => 'required',
-        ]);
+        // return $request->validated(); 
 
-        Project::create($fields);
+        Project::create($request->validated());
 
         return redirect()->route('projects.index');
     }
 }
-
-/* Notas:
-    | --------------------------------------------------------------------------------------------------------------------------------------------------------
-    | *Supongamos que tenemos un campo 'approved' => true que guardará si el proyecto fue aprobado y sólo se va a publicar si el campo es true(verdadero),
-    |  de alguna manera un usuario malintencionado se entra que existe un campo 'approved' y modifica de false a true
-    |   *Se puede hacer inspeccionado el elemento desde el navegador (click derecho + inspeccionar elemento)
-    |   *Crea un elemento html con la propiedad name="approved" con valor 1 asumiendo que el campo es boolean (verdadero o falso)
-    | *Al usar protección contra asignación masiva (mass asignment) se evita que el usuario malintencionado cree campos que no estén en la propiedad $fillable
-    | --------------------------------------------------------------------------------------------------------------------------------------------------------
-*/

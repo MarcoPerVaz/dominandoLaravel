@@ -7,6 +7,16 @@
 
   <h1>Crear nuevo proyecto</h1>
   
+  {{-- errors --}}
+    @if ($errors->any())
+        <ul>
+        @foreach ($errors->all() as $error) 
+            <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    @endif
+  {{-- end errors --}}
+
   <form method="POST" action="{{ route('projects.store') }}">
 
     {{-- directiva csrf --}}
@@ -50,10 +60,9 @@
 
 
 {{-- Notas:
-      | --------------------------------
-      | *La directiva @csrf es una protección contra ataques csrf
-      |   *Documentación: https://laravel.com/docs/5.5/csrf#csrf-introduction
-      |   *Para laravel 5.5 se usa {{ csrf_field() }}
-      |   *Para laravel 5.6 en adelante se usa la directiva @csrf o {{ csrf_field() }}
-      | --------------------------------  
+      | ---------------------------------------------------------------
+      | *$errors->any() Verifica si hay errores
+      | *$errors->all() dentro de un foreache recorre todos los errores
+      | *$error Muestra el error en la vista
+      | ---------------------------------------------------------------  
 --}}
