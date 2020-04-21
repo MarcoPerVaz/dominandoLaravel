@@ -4,37 +4,31 @@
 <!-- end title -->
 
 <!-- commit name -->
-### Commit | __Eloquent: Eliminar registros__
+### Commit | __Route Resource__
 <!-- end commit name -->
 ===
 <!-- official documentation -->
-[Documentación | `Deleting Models`](https://laravel.com/docs/5.7/eloquent#deleting-models)
+[Documentación | `Supplementing Resource Controllers`](https://laravel.com/docs/5.7/controllers#restful-supplementing-resource-controllers)
 
-[Documentación | `Introduction CSRF`](https://laravel.com/docs/5.7/csrf#csrf-introduction)
+[Documentación | `Naming Resource Routes`](https://laravel.com/docs/5.7/controllers#restful-naming-resource-routes)
 
-[Documentación | `Form Method Spoofing`](https://laravel.com/docs/5.7/routing#form-method-spoofing)
+[Documentación | `Naming Resource Route Parameters`](https://laravel.com/docs/5.7/controllers#restful-naming-resource-route-parameters)
 <!-- end official documentation -->
 
 <!-- commit instructions -->
-1. Creación y edición de la vista `resources\views\projects\show.blade.php`
-2. Edición del archivo de rutas `routes\web.php`
-3. Edición del controlador `app\Http\Controllers\ProjectController.php`
-    - Creación y edición de la función `destroy(Project $project)`
-
+1. Edición del archivo de rutas `routes\web.php`
 <!-- end commit instructions -->
 ===
 <!-- notes -->
 #### Notas:
   - [Documentación oficial de `Laravel 5.7`](https://laravel.com/docs/5.7)
+  - Para ver sólo las rutas de project
+      > php artisan route:list --name=projects
+
+      **`projects` es el nombre de las rutas que solo se quieren ver*
 <!-- end notes -->
 ===
 <!-- information -->
 #### Información
-**Más información en `resources\views\projects\show.blade.php`
-
-**Más información en `resources\views\projects\edit.blade.php`
-
 **Más información en `routes\web.php`
-
-**Más información en `app\Http\Controllers\ProjectController.php`
 <!-- end information -->
