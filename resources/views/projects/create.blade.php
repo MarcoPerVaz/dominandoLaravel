@@ -6,7 +6,13 @@
 @section('content')
 
   <h1>Crear nuevo proyecto</h1>
-  
+
+  {{-- @if (session('status'))
+    {{ session('status') }}   
+  @endif --}}
+
+   {{-- @include('partials.session-status') --}}
+
    @include('partials.validation-errors')
 
 
@@ -21,14 +27,9 @@
 
 
 {{-- Notas:
-      | -------------------------------------------------------------------------------------------------------
-      | *Mensajes de validación en la vista resources\views\partials\validation-errors.blade.php
-      |   *@include('partials.validation-errors')
-      | -------------------------------------------------------------------------------------------------------
-      | *La directiva @csrf o {{ csrf_field() }} se pasó a resources\views\partials\validation-errors.blade.php
-      | -------------------------------------------------------------------------------------------------------
-      | *El formulario se pasó a resources\views\projects\_form.blade.php
-      |   *@include('projects._form', ['btnText' => 'Guardar'])
-      |     *['btnText' => 'Guardar'] se pasa como parámetro a resources\views\projects\_form.blade.php
-      | -------------------------------------------------------------------------------------------------------  
+      | ----------------------------------------------------------------------------------------------------
+      | *El bloque de código de if() fue pasado a la vista resources\views\partials\session-status.blade.php
+      | *El @include('partials.session-status') fue pasado a la vista resources\views\layout.blade.php
+      | *Se dejaron los código en esta vista como referencia
+      | ----------------------------------------------------------------------------------------------------  
 --}}

@@ -92,7 +92,7 @@ class ProjectController extends Controller
         */
         Project::create($request->validated());
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with('status', 'El proyecto fue creado con éxito');
     }
 
     /* 
@@ -143,7 +143,7 @@ class ProjectController extends Controller
 
         $project->update($request->validated());
 
-        return redirect()->route('projects.show', $project);
+        return redirect()->route('projects.show', $project)->with('status', 'El proyecto fue actualizado con éxito');
     }
 
     /* 
@@ -158,20 +158,19 @@ class ProjectController extends Controller
             | *$project obtiene la instancia del modelo Project
             | -------------------------------------------------
         */
-        // Project::destroy($id);
-
         $project->delete();
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with('status', 'El proyecto fue eliminado con éxito');
     }
 }
 
 
 /* Notas:
     | -------------------------------------------------------------------------------------------------------------------------------------
-    | *Project::destroy($id); Permite eliminar un proyecto mediante el id
-    |   *public function destroy($id)
-    |       *Si en el modelo Project ya existe la función getRouteKeyName()
-    |           *Entonces esta forma no servirá
+    | *Se envían mensajes de sesión a la vista parcial resources\views\partials\session-status.blade.php
+    |  para informar al usuario si se creó, actualizó o eliminó un proyecto
+    |   *->with('status', 'El proyecto fue creado con éxito');
+    |   *->with('status', 'El proyecto fue actualizado con éxito');
+    |   *->with('status', 'El proyecto fue eliminado con éxito');
     | -------------------------------------------------------------------------------------------------------------------------------------
 */

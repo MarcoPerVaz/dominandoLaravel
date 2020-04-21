@@ -35,18 +35,17 @@ class MessageController extends Controller
         */
         // return new MessageReceived($msg);
 
-        return "Mensaje enviado";
+        // return "Mensaje enviado";
+
+        return back()->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas');
     }
 }
 
 
 /* Notas:
     | ----------------------------------------------------------------------------------------------------------------
-    | *Al mandar email y teniendo MAIL_DRIVER=log en el archivo .env crea un archivo en storage\logs\laravel.log con los 
-    |  datos del email(funciona)
-    | *new MessageReceived($msg) es una nueva instancia de app\Mail\MessageReceived.php
-    |   *Dónde $msg es la variable public declarada en app\Mail\MessageReceived.php
-    | *La función queue() ayuda a hacer trabajos en 2do plano y evitar que el usuario tenga que esperar a que termine
-    |  el proceso (si no existe queue por defecto usará send() en lugar de queue())
+    | *return back()->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas');
+    |   *La variable de sesión 'status' se envía a la vista parcial resources\views\partials\session-status.blade.php para avisarle al usuario
+    |    que su email fue enviado con éxito
     | ----------------------------------------------------------------------------------------------------------------
 */

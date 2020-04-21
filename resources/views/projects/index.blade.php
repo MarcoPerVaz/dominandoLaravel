@@ -7,6 +7,12 @@
 
   <h1>Projects</h1>
 
+  {{-- @if (session('status'))
+    {{ session('status') }}   
+  @endif --}}
+
+   {{-- @include('partials.session-status') --}}
+
   <ul>
     <a href="{{ route('projects.create') }}">Crear proyecto</a>
 
@@ -25,11 +31,9 @@
 
 
 {{-- Notas:
-      | ------------------------------------
-      | *Al usar  route('portfolio.show', $project): $project sería como escribir $project->getRouteKey() => 1, lo que obtiene 
-      |  todos los campos del registro con id = 1 y son pasados a la vista projects.show
-      |   *Ejemplo: $project->id
-      | *{{ $projects->links() }} hace que se vea la paginación si la tabla tiene más de 15 registros o en el controlador se hayan definido cuantos 
-      |  registros mostrar por página y se supere ese número de registros
-      | ------------------------------------  
+      | ----------------------------------------------------------------------------------------------------
+      | *El bloque de código de if() fue pasado a la vista resources\views\partials\session-status.blade.php
+      | *El @include('partials.session-status') fue pasado a la vista resources\views\layout.blade.php
+      | *Se dejaron los código en esta vista como referencia
+      | ----------------------------------------------------------------------------------------------------  
 --}}

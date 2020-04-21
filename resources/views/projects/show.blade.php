@@ -13,6 +13,12 @@
     <a href="{{ route('projects.edit', $project) }}">Editar</a>
   {{-- end btnEdit --}}
 
+  {{-- @if (session('status'))
+    {{ session('status') }}   
+  @endif --}}
+
+   {{-- @include('partials.session-status') --}}
+
   {{-- delete --}}
     <form method="POST" action="{{ route('projects.destroy', $project) }}">
       @csrf
@@ -33,12 +39,8 @@
 
 {{-- Notas:
       | --------------------------------------------------------------------------------------------------------------------
-      | *Para usar los métodos HTTP que no soportan los navegadores por defecto, pero Laravel los implementa
-      |   *Laravel 5.5: {{ method_field('DELETE') }}
-      |   *Laravel 5.6 o superior: @method('DELETE')
-      |   *Lo que hace Laravel es crear un campo oculto
-      |     *<input type="hidden" name="_method" value="DELETE">
-      | *route('projects.destroy', $project)
-      |   *$project Sirve para pasar la instancia del modelo Project
+      | *El bloque de código de if() fue pasado a la vista resources\views\partials\session-status.blade.php
+      | *El @include('partials.session-status') fue pasado a la vista resources\views\layout.blade.php
+      | *Se dejaron los código en esta vista como referencia
       | --------------------------------------------------------------------------------------------------------------------  
 --}}
