@@ -64,7 +64,9 @@ class ProjectController extends Controller
     */
     public function create(Project $project)
     {
-       return view('projects.create');
+       return view('projects.create', [
+           'project' => new Project
+       ]);
     }
 
     /* 
@@ -148,6 +150,6 @@ class ProjectController extends Controller
 
 /* Notas:
     | -------------------------------------------------------------------------------------------------------------------------------------
-    | *return redirect()->route('projects.show', $project); Al retornar $project como parámetro se redirecciona con el proyecto actualizado
+    | *'project' => new Project Permite enviar null y que no falle al reutilizar el formulario Html para crear y editar
     | -------------------------------------------------------------------------------------------------------------------------------------
 */
