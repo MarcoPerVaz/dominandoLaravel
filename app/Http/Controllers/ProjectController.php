@@ -145,11 +145,33 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.show', $project);
     }
+
+    /* 
+        | --------------------------------------------------------------------------
+        | *Elimina un proyecto existente
+        | --------------------------------------------------------------------------
+    */
+    public function destroy(Project $project)
+    {
+        /* 
+            | -------------------------------------------------
+            | *$project obtiene la instancia del modelo Project
+            | -------------------------------------------------
+        */
+        // Project::destroy($id);
+
+        $project->delete();
+
+        return redirect()->route('projects.index');
+    }
 }
 
 
 /* Notas:
     | -------------------------------------------------------------------------------------------------------------------------------------
-    | *'project' => new Project Permite enviar null y que no falle al reutilizar el formulario Html para crear y editar
+    | *Project::destroy($id); Permite eliminar un proyecto mediante el id
+    |   *public function destroy($id)
+    |       *Si en el modelo Project ya existe la función getRouteKeyName()
+    |           *Entonces esta forma no servirá
     | -------------------------------------------------------------------------------------------------------------------------------------
 */

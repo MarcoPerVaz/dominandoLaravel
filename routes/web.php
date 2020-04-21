@@ -60,6 +60,17 @@ Route::post('/portfolio/crear', 'ProjectController@store')->name('projects.store
 Route::get('/portfolio/{project}', 'ProjectController@show')->name('projects.show');
 
 /* 
+    | -----------------------------------------------------------------------------------
+    | *Ruta básica asociada a la función destroy() del controlador ProjectController
+    | *El parámetro de la ruta debe ser igual al parámetro de la función
+    |   *public function show(Project $project)
+    |       *La función show() recibe como parámetro $project y debe ser pasada a la ruta
+    |       *Route::get('/portfolio/{project}'
+    | -----------------------------------------------------------------------------------
+*/
+Route::delete('/portfolio/{project}', 'ProjectController@destroy')->name('projects.destroy');
+
+/* 
     | ----------------------------------------------------------------------------
     | *El orden de las rutas es importante
     |   *Laravel lee las rutas de arriba hacía abajo
@@ -77,6 +88,8 @@ Route::post('/contact', 'MessageController@store');
     |       *No message
     | *Los navegadores no soportan los métodos PUT, PATCH, DELETE
     |   *Laravel tiene su mecanismo para poder usar este tipo de métodos HTTP
+    | ------------------------------------------------------------------------------------------------------------------------------------
+    | *Para eliminar un proyecto existente se puede usar el método HTTP: delete o post
     | ------------------------------------------------------------------------------------------------------------------------------------
 */
 
