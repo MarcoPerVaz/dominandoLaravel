@@ -18,6 +18,31 @@ use App\Http\Requests\SaveProjectRequest;
 
 class ProjectController extends Controller
 {
+
+    /* 
+        | ----------------------------------------------------------------------------------------------------------------------
+        | *En la función __construct() se aplica el middleware Auth
+        | *$this->middleware(('auth'));
+        |   *Todas las funciones no son accesibles si el usuario no está autenticado
+        | ----------------------------------------------------------------------------------------------------------------------
+        | *$this->middleware(('auth'))->only('create', 'edit'); 
+        |   *only en español es: 'solo'
+        |   *Las funciones create() y edit() solo son accesibles si el usuario está autenticado
+        |   *Las funciones index(), store(), show(), update() y destroy() son accesibles si el usuario es invitado o autenticado
+        | ----------------------------------------------------------------------------------------------------------------------
+        | *$this->middleware(('auth'))->except('index', 'show');
+        |   *excepto en español es: excepto
+        |   *Las funciones index() y show() son accesibles si el usuario es invitado o autenticado
+        |   *Las funciones create(), store(), edit(), update() y destroy() son accesibles si el usuario está autenticado 
+        | ----------------------------------------------------------------------------------------------------------------------
+    */
+    public function __construct()
+    {
+        // $this->middleware(('auth'));
+        // $this->middleware(('auth'))->only('create', 'edit');
+        $this->middleware(('auth'))->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resources.
      *
@@ -167,10 +192,9 @@ class ProjectController extends Controller
 
 /* Notas:
     | -------------------------------------------------------------------------------------------------------------------------------------
-    | *Se envían mensajes de sesión a la vista parcial resources\views\partials\session-status.blade.php
-    |  para informar al usuario si se creó, actualizó o eliminó un proyecto
-    |   *->with('status', 'El proyecto fue creado con éxito');
-    |   *->with('status', 'El proyecto fue actualizado con éxito');
-    |   *->with('status', 'El proyecto fue eliminado con éxito');
+    | *auth es un alias de la clase \Illuminate\Auth\Middleware\Authenticate::class,
+    |   *app\Http\Kernel.php
+    | ¨Los middlewares se almancen en app\Http\Middleware
+    | *Los middlewares se deben registrar en app\Http\Kernel.php
     | -------------------------------------------------------------------------------------------------------------------------------------
 */

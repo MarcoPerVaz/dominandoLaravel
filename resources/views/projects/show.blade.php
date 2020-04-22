@@ -9,23 +9,19 @@
     <h1>{{ $project->title }}</h1>
   {{-- end title --}}
 
-  {{-- btnEdit --}}
-    <a href="{{ route('projects.edit', $project) }}">Editar</a>
-  {{-- end btnEdit --}}
+  @auth
+    {{-- btnEdit --}}
+      <a href="{{ route('projects.edit', $project) }}">Editar</a>
+    {{-- end btnEdit --}}
 
-  {{-- @if (session('status'))
-    {{ session('status') }}   
-  @endif --}}
-
-   {{-- @include('partials.session-status') --}}
-
-  {{-- delete --}}
-    <form method="POST" action="{{ route('projects.destroy', $project) }}">
-      @csrf
-      @method('DELETE')
-      <button>Eliminar</button>
-    </form>
-  {{-- end delete --}}
+    {{-- delete --}}
+      <form method="POST" action="{{ route('projects.destroy', $project) }}">
+        @csrf
+        @method('DELETE')
+        <button>Eliminar</button>
+      </form>
+    {{-- end delete --}}
+    @endauth
 
   {{-- description --}}
     <p>{{ $project->description }}</p>
@@ -39,8 +35,7 @@
 
 {{-- Notas:
       | --------------------------------------------------------------------------------------------------------------------
-      | *El bloque de código de if() fue pasado a la vista resources\views\partials\session-status.blade.php
-      | *El @include('partials.session-status') fue pasado a la vista resources\views\layout.blade.php
-      | *Se dejaron los código en esta vista como referencia
+      | *La directiva @auth permite mostrar HTML sólo si el usuario está autenticado
+      | *La directiva @guest permite mostrar HTML sólo si el usuario es invitado
       | --------------------------------------------------------------------------------------------------------------------  
 --}}

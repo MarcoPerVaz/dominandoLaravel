@@ -7,15 +7,11 @@
 
   <h1>Projects</h1>
 
-  {{-- @if (session('status'))
-    {{ session('status') }}   
-  @endif --}}
-
-   {{-- @include('partials.session-status') --}}
+  @auth
+    <a href="{{ route('projects.create') }}">Crear proyecto</a>
+  @endauth
 
   <ul>
-    <a href="{{ route('projects.create') }}">Crear proyecto</a>
-
     @forelse ($projects as $project)
         <li>
           <a href="{{ route('projects.show', $project) }}">{{ $project->title }} </a>
@@ -32,8 +28,7 @@
 
 {{-- Notas:
       | ----------------------------------------------------------------------------------------------------
-      | *El bloque de código de if() fue pasado a la vista resources\views\partials\session-status.blade.php
-      | *El @include('partials.session-status') fue pasado a la vista resources\views\layout.blade.php
-      | *Se dejaron los código en esta vista como referencia
+      | *La directiva @auth permite mostrar HTML sólo si el usuario está autenticado
+      | *La directiva @guest permite mostrar HTML sólo si el usuario es invitado
       | ----------------------------------------------------------------------------------------------------  
 --}}

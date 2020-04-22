@@ -12,6 +12,7 @@ Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
 
+
 /* 
     | ----------------------------------------------------------------------------
     | *Ruta Resource asociada a los 7 métodos REST del controlador ProjectController
@@ -33,6 +34,17 @@ Route::view('/contact', 'contact')->name('contact');
 */
 Route::resource('portfolio', 'ProjectController')->names('projects')->parameters(['portfolio' => 'project']);
 
+/* 
+    | -------------------------------------------
+    | *Ruta Resource asociada a los 7 métodos REST del controlador ProjectController y con el Middleware Auth
+    |   *index(), create(), store(), show(), edit(), update() y destroy()
+    | *El middleware Auth ya es incluído por defecto en Laravel
+    | *Los middlewares son almacenados en app\Http\Middleware
+    | *Los midllewares se deben registrar en app\Http\Kernel.php
+    | -------------------------------------------
+*/
+// Route::resource('portfolio', 'ProjectController')->names('projects')->parameters(['portfolio' => 'project'])->middleware('auth');
+
 
 
 /* 
@@ -43,16 +55,6 @@ Route::resource('portfolio', 'ProjectController')->names('projects')->parameters
     | ----------------------------------------------------------------------------
 */
 Route::post('/contact', 'MessageController@store');
-
-
-/* 
-    | ---------------------------------------------------------------------------
-    | Ruta que incluye las rutas de login, registro y recuperación de contraseñas
-    | *Si se usa Laravel 5.5
-    |   *Para inhabilitar que usuarios invitados puedan registrarse se debe modificar app\Http\Controllers\Auth\RegisterController.php 
-    | ---------------------------------------------------------------------------
-*/
-// Auth::routes();
 
 
 /* 
@@ -70,8 +72,9 @@ Auth::routes(['register' => false]);
 
 /* Notas:
     | ------------------------------------------------------------------------------------------------------------------------------------------
-    | *Para más información sobre inhabilitar la ruta register
-    |   * Más información en https://laravel.com/docs/5.7/authentication#included-routing
+    | *Al usar el middleware sobre una routa resource, el middleware controla todas las rutas, para especificar que 
+    |  funciones maneja el middleware y cuales no, se hace desde el controlador app\Http\Controllers\ProjectController.php
+    | *El middleware no se implementa aquí pero de requerirlo, se puede usar sin problema
     | ------------------------------------------------------------------------------------------------------------------------------------------
 */
 
