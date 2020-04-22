@@ -45,23 +45,35 @@ Route::resource('portfolio', 'ProjectController')->names('projects')->parameters
 Route::post('/contact', 'MessageController@store');
 
 
+/* 
+    | ---------------------------------------------------------------------------
+    | Ruta que incluye las rutas de login, registro y recuperación de contraseñas
+    | *Si se usa Laravel 5.5
+    |   *Para inhabilitar que usuarios invitados puedan registrarse se debe modificar app\Http\Controllers\Auth\RegisterController.php 
+    | ---------------------------------------------------------------------------
+*/
+// Auth::routes();
+
+
+/* 
+    | ---------------------------------------------------------------------------
+    | Ruta que incluye las rutas de login, registro y recuperación de contraseñas pero no permite registrar siendo invitado
+    | *Si se usa Laravel 5.7
+    |   *Para inhabilitar que usuarios invitados puedan registrarse sólo se debe modificase Auth::routes();
+    |       *Esto Auth::routes(); por esto Auth::routes(['register' => false]);
+    |   *Esta opción no se podía hacer en Laravel 5.5
+    | ---------------------------------------------------------------------------
+*/
+Auth::routes(['register' => false]);
+
+
+
 /* Notas:
     | ------------------------------------------------------------------------------------------------------------------------------------------
-    | *Para ver sólo las rutas de project
-    |   *php artisan route:list --name=projects
-    | ------------------------------------------------------------------------------------------------------------------------------------------
-    | *Las rutas Resource es una sola ruta pero que contiene los 7 métodos básicos para un CRUD en Laravel
-    |   *index, create, store, show, edit, update y destroy
-    | ------------------------------------------------------------------------------------------------------------------------------------------
-    | *Se le puede asignar un nombre a las rutas en caso de que se le quiera dejar portfolio en la url usando ->names(')
-    |   *Route::resource('portfolio', 'ProjectController')->names('projects');
-    | ------------------------------------------------------------------------------------------------------------------------------------------
-    | *Se le puede asignar un parámetro a las rutas ->parameters(['portfolio' => 'project'])
-    |   *Por defecto el parámetro es: {portfolio}
-    |   *Con parameters se le cambiar por {portfolio} que es lo que necesitamos
-    |       *Route::resource('portfolio', 'ProjectController')->names('projects')->parameters(['portfolio' => 'projects']);
-    |           *El nombre del parámetro debe ser igual al parámetro en las funciones del controlador app\Http\Controllers\ProjectController.php
-    |               *Ejemplo: show(Project $project)
+    | *Para más información sobre inhabilitar la ruta register
+    |   * Más información en https://laravel.com/docs/5.7/authentication#included-routing
     | ------------------------------------------------------------------------------------------------------------------------------------------
 */
+
+
 

@@ -5,11 +5,18 @@
 
 @section('content')
   <h1>Home</h1>
+
+  {{-- {{ auth()->user() }} --}}
+
+  @auth
+    {{ auth()->user()->name }}
+  @endauth
 @endsection
 
 {{-- Notas:
-  | ---------------------------------------------------------------------------
-  | *La directiva section('content') enlaza con la directiva yield('content')
-  |  *Todo lo que este dentro de section('') se inserta dentro de la directiva yield('')
-  | ---------------------------------------------------------------------------
+  | -------------------------------------------------------------------------------------------------------
+  | *La directiva @auth permite crear código HTML que sólo podrá ser visible si el usuario está autenticado
+  | *{{ auth()->user() }} Muestra toda la información sobre el usuario autenticado
+  | *{{ auth()->user()->name }} Muetra el nombre del usuario autenticado
+  | -------------------------------------------------------------------------------------------------------
 --}}

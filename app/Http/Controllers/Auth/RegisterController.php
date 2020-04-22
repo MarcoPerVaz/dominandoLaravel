@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,6 +37,19 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        /* 
+            | ------------------------------------------------------------
+            | *Solo usuarios autenticados podrán registrar nuevos usuarios para Laravel 5.5
+            | ------------------------------------------------------------
+        */
+        // $this->middleware('auth');
+
+        /* 
+            | -----------------------------------------------------------------------------
+            | *Viene por defecto que el registro pueda hacerse con usuarios no autenticados
+            | *Para Laravel 5.7 no se tiene que modificar aquí sino en routes\web.php
+            | -----------------------------------------------------------------------------
+        */
         $this->middleware('guest');
     }
 
@@ -70,3 +83,10 @@ class RegisterController extends Controller
         ]);
     }
 }
+
+
+/* Notas:
+    | --------------------------------------------------------------------------
+    | *protected $redirectTo = '/'; Indica a que ruta ir después de registrarse
+    | --------------------------------------------------------------------------
+*/
