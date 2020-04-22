@@ -12,3 +12,14 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+
+/* 
+  | --------------------------------------------------
+  | *Clase para resources\views\partials\nav.blade.php
+  | --------------------------------------------------
+*/
+.active a {
+  color: purple;
+  text-decoration: none;
+}

@@ -31,3 +31,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app'
 });
+
+
+/* 
+    | -----------------------------------------------------------------
+    | *Sólo se creo como prueba pra verificar si se mostraba el alert()
+    | -----------------------------------------------------------------
+*/
+// alert("Hola");
