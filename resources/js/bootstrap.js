@@ -7,6 +7,13 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
+ /* 
+    | *Si se usa Laravel 5.5
+    |   *Tiene ciertas cosas que hay que agregar
+    |   *Agregar window.Popper = require('popper.js');
+    |   *Cambiar require('bootstrap-sass'); por require('bootstrap');
+ */
+
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
@@ -54,3 +61,10 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+/* Notas: 
+    | -------------------------------------------
+    | *En Laravel 5.5 Este archivo es diferente
+    | -------------------------------------------
+*/

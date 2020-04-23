@@ -3,39 +3,50 @@
 <html>
 <head>
   <title>@yield('title', 'Home')</title>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   {{-- CSS --}}
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
   {{-- CSS --}}
-
-   {{-- JS --}}
+  
+  {{-- JS --}}
     <script src="/js/app.js" defer></script>
   {{-- JS --}}
-
+  
 </head>
 <body>
 
-      @include('partials.nav') 
+  <div id="app" class="d-flex flex-column h-screen justify-content-between">
 
-    @include('partials.session-status')
+    {{-- header --}}
+      <header>
+        @include('partials.nav')
+        @include('partials.session-status')
+      </header>
+    {{-- end header --}}
 
-  @yield('content')
+      {{-- main --}}
+        <main>
+          @yield('content')
+        </main>
+      {{-- end main --}}
 
+      {{-- footer --}}
+        <footer class="bg-white text-blac-50 text-center py-3 shadow">
+          {{ config('app.name') }}  Copyright @ {{ date('Y') }}
+        </footer>
+      {{-- end footer --}}
+      
+  </div>
 </body>
 </html>
 
 {{-- Notas:
   |-----------------------------------------------------------------------------------------------------------------
-  | */css ó /js significa que se encuentra en la carpeta public de Laravel
-  | *<script src="/js/app.js" defer></script> defer indica que se ejecute el javascript al final de la carga del sitio
-  | *No se deben colocar estilos en public\css\app.css
-  | *No se deben colocar estilos en public\js\app.js
-  | *Para agregar o modificar los estilos se deben agregar en:
-  |   *Si son js en resources\assets\js
-  |   *Si son css en resources\assets\sass
-  | *Laravel por defecto incluye sass que es un compilador de estilos que permite usar variables
-  | *El archivo de entrada para los estilos es resources\assets\sass\app.scss
-  | *{{ mix('css/app.css') }} sirve para tener actualizado el css y evitar tener que hacer un hard reload (ctrl + r) en el navegador, 
-  |  así que no hay necesidad de borrar cachés
+  | *<meta name="viewport" content="width=device-width, initial-scale=1"> para responsive
+  | *<meta name="csrf-token" content="{{ csrf_token() }}"> lo necesita axios(vuejs)
+  | *<div id="app"> lo necesita vuejs
   |-----------------------------------------------------------------------------------------------------------------
 --}}

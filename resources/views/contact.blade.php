@@ -4,50 +4,92 @@
 @section('title', 'Contact')
 
 @section('content')
-  <h1>{{ __("Contact") }}</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-10 col-lg-6 mx-auto">
 
-  <form action="{{ route('contact') }}" method="POST">
+        @include('partials.session-status')
+    
+        <form class="bg-white shadow rounded py-3 px-4" action="{{ route('contact') }}" method="POST">
+    
+          {{ csrf_field() }}
 
-    @csrf
-
-    {{-- name --}}
-    <input name="name" placeholder="Nombre..." value="{{ old('name') }}">
-    <br>
-    {!! $errors->first('name', '<small>:message</small><br>') !!}
-    {{-- end name --}}
-
-    {{-- email --}}
-    <input type="email" name="email" placeholder="Email..." value="{{ old('email') }}">
-    <br>
-    {!! $errors->first('email', '<small>:message</small><br>') !!}
-    {{-- end email --}}
-
-    {{-- subject --}}
-    <input name="subject" placeholder="Asunto..." value="{{ old('subject') }}">
-    <br>
-    {!! $errors->first('subject', '<small>:message</small><br>') !!}
-    {{-- end subject --}}
-
-    {{-- content --}}
-    <textarea name="content" placeholder="Mensaje...">{{ old('content') }}</textarea>
-    <br>
-    {!! $errors->first('content', '<small>:message</small><br>') !!}
-    {{-- end content --}}
-
-    {{-- button --}}
-    <button>@lang('Send')</button>
-    {{-- end button --}}
-  </form>
+          {{-- title --}}
+            <h1 class="display-4">{{ __("Contact") }}</h1>
+          {{-- end title --}}
+    
+          {{-- name --}}
+            <div class="form-group">
+              <label for="name">Nombre</label>
+                <input class="form-control bg-light shadow sm {{ $errors->first('name') ? 'is-invalid' : 'border-0' }} 
+                    {{-- @error('name') is-invalid @enderror --}}" 
+                    name="name" placeholder="Nombre..." id="name" value="{{ old('name') }}">
+                    {{-- @error('name')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror --}} {{-- NO FUNCIONA EN LARAVEL 5.5 | ES A PARTIR DE LARAVEL 5.8 --}}
+                {!! $errors->first('name', '<small style="color: red";>:message</small><br>') !!}
+            </div>
+          {{-- end name --}}
+          
+         {{-- email --}}
+            <div class="form-group">
+              <label for="email">Email</label>
+                <input class="form-control bg-light shadow sm {{ $errors->first('email') ? 'is-invalid' : 'border-0' }} 
+                    {{-- @error('email') is-invalid @enderror --}}" 
+                    type="email" name="email" placeholder="Email..." id="name" value="{{ old('email') }}">
+                    {{-- @error('email')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror --}} {{-- NO FUNCIONA EN LARAVEL 5.5 | ES A PARTIR DE LARAVEL 5.8 --}}
+                {!! $errors->first('email', '<small style="color: red";>:message</small><br>') !!}
+            </div>
+          {{-- end email --}}
+          
+         {{-- subject --}}
+            <div class="form-group">
+              <label for="subject">Asunto</label>
+                <input class="form-control bg-light shadow sm {{ $errors->first('subject') ? 'is-invalid' : 'border-0' }} 
+                    {{-- @error('subject') is-invalid @enderror --}}" 
+                    name="subject" placeholder="Asunto..." id="subject" value="{{ old('subject') }}">
+                    {{-- @error('subject')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror --}} {{-- NO FUNCIONA EN LARAVEL 5.5 | ES A PARTIR DE LARAVEL 5.8 --}}
+                {!! $errors->first('subject', '<small style="color: red";>:message</small><br>') !!}
+            </div>
+          {{-- end subject --}}
+          
+         {{-- content --}}
+            <div class="form-group">
+              <label for="content">Contenido</label>
+                <textarea class="form-control bg-light shadow sm {{ $errors->first('content') ? 'is-invalid' : 'border-0' }} 
+                    {{-- @error('content') is-invalid @enderror --}}" 
+                    name="content" placeholder="Mensaje..." id="content">{{ old('content') }}</textarea>
+                    {{-- @error('content')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror --}} {{-- NO FUNCIONA EN LARAVEL 5.5 | ES A PARTIR DE LARAVEL 5.8 --}}
+                {!! $errors->first('content', '<small style="color: red";>:message</small><br>') !!}
+            </div>
+          {{-- end content --}}
+    
+          {{-- button send --}}
+            <button class="btn btn-primary btn-lg btn-block">@lang('Send')</button>
+          {{-- end button send --}}
+        </form>
+      </div>
+    </div>
+  </div>
 @endsection
 
 {{-- Notas:
   | -----------------------------------------------------------------------------------------------------------------
-  | *Para traducir textos estáticos en la aplicación laravel implementa lo siguiente
-  |   *Usar esta sintaxis {{ __("Contact") }} en cualquier texto que se desee traducir
-  |     *Dónde "Contact" será el nombre de la variable json que queremos traducir
-  |       *Las variables de traducción están en resources\lang\es.php
-  |   *Tambien se puede usar la directiva @lang('Home') en lugar de {{ __("Home") }}
-  | *Es recomendable que los textos a traducir estén todos en el mismo idioma (inglés en este caso)
-  | *Las traducciones al español están en resources\lang\es.json
+  | **@error('name') is-invalid @enderror no funciona en Laravel 5.5
+  |     *Es a partir de Laravel 5.8
   | -----------------------------------------------------------------------------------------------------------------
 --}}
