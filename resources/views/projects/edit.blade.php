@@ -5,26 +5,28 @@
 
 @section('content')
 
-  <h1>Editar proyecto</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-10 col-lg-6 mx-auto">
+        
+        @include('partials.validation-errors')
+        
+        <form class="bg-white py-3 px-4 shadow rounded" method="POST" action="{{ route('projects.update', $project) }}">
+      
+          {{-- directiva @method --}}
+            {{ method_field('PATCH') }}
+          {{-- enddirectiva@method --}}
 
-  {{-- @if (session('status'))
-    {{ session('status') }}   
-  @endif --}}
+          <h1 class="dipslay-4">Editar proyecto</h1>
 
-   {{-- @include('partials.session-status') --}}
+          <hr>
+      
+          @include('projects._form', ['btnText' => 'Actualizar'])
+        </form>
 
-  @include('partials.validation-errors')
-
-  
-  <form method="POST" action="{{ route('projects.update', $project) }}">
-
-    {{-- directiva method --}}
-      @method('PATCH')
-    {{-- end directiva method --}}
-
-    @include('projects._form', ['btnText' => 'Actualizar'])
-
-  </form>
+      </div>
+    </div>
+  </div>
   
 @endsection
 

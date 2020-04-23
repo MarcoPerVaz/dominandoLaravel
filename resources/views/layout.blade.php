@@ -28,7 +28,7 @@
     {{-- end header --}}
 
       {{-- main --}}
-        <main>
+        <main class="py-4">
           @yield('content')
         </main>
       {{-- end main --}}
@@ -42,11 +42,3 @@
   </div>
 </body>
 </html>
-
-{{-- Notas:
-  |-----------------------------------------------------------------------------------------------------------------
-  | *<meta name="viewport" content="width=device-width, initial-scale=1"> para responsive
-  | *<meta name="csrf-token" content="{{ csrf_token() }}"> lo necesita axios(vuejs)
-  | *<div id="app"> lo necesita vuejs
-  |-----------------------------------------------------------------------------------------------------------------
---}}

@@ -4,19 +4,26 @@
 @section('title', 'Home')
 
 @section('content')
-  <h1>Home</h1>
+  
+  <div class="container">
+    <div class="row">
+      {{-- home --}}
+      <div class="col-12 col-lg-6">
+          <h1 class="display-4 text-primary">Desarrollo web</h1>
+          <p class="lead text-secondary">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque, nesciunt voluptatum architecto quas pariatur voluptas quia obcaecati harum distinctio et, nostrum dignissimos eius sunt rerum vitae deserunt, debitis eos sapiente.
+          </p>
+          <a class="btn btn-lg btn-block btn-primary" href="{{ route('contact') }}">Contáctame</a>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="{{ route('projects.index') }}">Portafolio</a>
+      </div>
+      {{-- end home --}}
 
-  {{-- {{ auth()->user() }} --}}
+      {{-- img --}}
+        <div class="col-12 col-lg-6">
+          <img class="img-fluid mb-4" src="/img/home.svg" alt="Desarrollo web">
+        </div>
+      {{-- end img --}}
+    </div>
+  </div>
 
-  @auth
-    {{ auth()->user()->name }}
-  @endauth
 @endsection
-
-{{-- Notas:
-  | -------------------------------------------------------------------------------------------------------
-  | *La directiva @auth permite crear código HTML que sólo podrá ser visible si el usuario está autenticado
-  | *{{ auth()->user() }} Muestra toda la información sobre el usuario autenticado
-  | *{{ auth()->user()->name }} Muetra el nombre del usuario autenticado
-  | -------------------------------------------------------------------------------------------------------
---}}

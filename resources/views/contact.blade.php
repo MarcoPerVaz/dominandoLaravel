@@ -7,8 +7,6 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-sm-10 col-lg-6 mx-auto">
-
-        @include('partials.session-status')
     
         <form class="bg-white shadow rounded py-3 px-4" action="{{ route('contact') }}" method="POST">
     
@@ -18,6 +16,8 @@
             <h1 class="display-4">{{ __("Contact") }}</h1>
           {{-- end title --}}
     
+          <hr>
+
           {{-- name --}}
             <div class="form-group">
               <label for="name">Nombre</label>
@@ -86,10 +86,3 @@
     </div>
   </div>
 @endsection
-
-{{-- Notas:
-  | -----------------------------------------------------------------------------------------------------------------
-  | **@error('name') is-invalid @enderror no funciona en Laravel 5.5
-  |     *Es a partir de Laravel 5.8
-  | -----------------------------------------------------------------------------------------------------------------
---}}

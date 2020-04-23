@@ -7,6 +7,8 @@ $font-family-sans-serif: "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 $font-size-base: 1rem; /* Para bootstrap 4.3.1 */
+$enable-gradients: true; /* Para bootstrap 4.3.1 */
+$enable-responsive-font-sizes: true; /* Para bootstrap 4.3.1 */
 
 // Colors
 $blue: #3490dc;
@@ -23,10 +25,8 @@ $primary: #38b2ac; /* Para bootstrap 4.3.1 */
 
 
 /* Notas:
-    | ---------------------------
-    | *En Laravel 5.5 - Se deben comentar
-    |   *$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/"; Para bootstrap 3.3.7
-    |   *$font-size-base: 14px; Para bootstrap 3.3.7
-    | *$primary: #38b2ac; Es el color primario de la aplicación
-    | ---------------------------
+    | -----------------------------------------------------------------------------------------------
+    | *$enable-gradients: true; Para habilitar gradientes
+    | *$enable-responsive-font-sizes: true; Para habilitar que el texto se haga pequeño en responsive
+    | -----------------------------------------------------------------------------------------------
 */

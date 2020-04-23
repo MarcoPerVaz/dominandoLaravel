@@ -5,37 +5,40 @@
 
 @section('content')
 
-  {{-- title --}}
-    <h1>{{ $project->title }}</h1>
-  {{-- end title --}}
+  <div class="container">
+    <div class="bg-white p-5 shadow rounded">
+      <h1>{{ $project->title }}</h1>
+      <p class="text-secondary">{{ $project->description }}</p>
+      <p class="text-black-50">{{ $project->created_at->diffForHumans() }}</p>
 
-  @auth
-    {{-- btnEdit --}}
-      <a href="{{ route('projects.edit', $project) }}">Editar</a>
-    {{-- end btnEdit --}}
-
-    {{-- delete --}}
-      <form method="POST" action="{{ route('projects.destroy', $project) }}">
-        @csrf
-        @method('DELETE')
-        <button>Eliminar</button>
-      </form>
-    {{-- end delete --}}
-    @endauth
-
-  {{-- description --}}
-    <p>{{ $project->description }}</p>
-  {{-- end description --}}
-
-  {{-- created_at --}}
-    <p>{{ $project->created_at->diffForHumans() }}</p>
-  {{-- end created_at --}}
-@endsection
+      <div class="d-flex justify-content-between align-items-center">
+        {{-- back --}}
+        <a href="{{ route('projects.index') }}">Regresar</a>
+        {{-- end back --}}
+      
+        @auth
     
+        <div class="btn-group btn-group-sm">
+    
+          {{-- edit --}}
+            <a class="btn btn-primary" href="{{ route('projects.edit', $project) }}">Editar</a>
+          {{-- end edit --}}
+    
+          {{-- delete --}}
+            <a class="btn btn-danger" href="#" onclick="document.getElementById('delete-project').submit()">Eliminar</a>
+          {{-- end delete --}}
+          
+        </div>
+          {{-- form delete --}}
+          <form class="d-none" id="delete-project" method="POST" action="{{ route('projects.destroy', $project) }}">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+          </form>
+          {{-- end form delete --}}
+      
+        @endauth
+      </div>
+    </div>
+  </div>
 
-{{-- Notas:
-      | --------------------------------------------------------------------------------------------------------------------
-      | *La directiva @auth permite mostrar HTML sólo si el usuario está autenticado
-      | *La directiva @guest permite mostrar HTML sólo si el usuario es invitado
-      | --------------------------------------------------------------------------------------------------------------------  
---}}
+@endsection
