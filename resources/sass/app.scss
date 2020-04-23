@@ -11,12 +11,3 @@
 .h-screen {
   height: 100vh;
 }
-
-
-/* Notas:
-    | ----------------------
-    | *Para Laravel 5.5 Se debe cambiar:
-    |   *Si la aplicación tiene Bootstrap 3.3.7
-    |     *Esto: @import "~bootstrap-sass/assets/stylesheets/bootstrap"; por esto: @import '~bootstrap/scss/bootstrap';
-    | ----------------------
-*/

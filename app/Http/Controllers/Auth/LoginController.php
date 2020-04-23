@@ -37,10 +37,3 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 }
-
-
-/* Notas 
-    | -----------------------------------------------------------------------
-    | *protected $redirectTo = '/'; Indica a que ruta ir después de loguearse
-    | -----------------------------------------------------------------------
-*/

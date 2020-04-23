@@ -49525,12 +49525,6 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
-/* 
-    | -----------------------------------------------------------------
-    | *Sólo se creo como prueba pra verificar si se mostraba el alert()
-    | -----------------------------------------------------------------
-*/
-// alert("Hola");
 
 /***/ }),
 
@@ -49596,12 +49590,6 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-
-/* Notas: 
-    | -------------------------------------------
-    | *En Laravel 5.5 Este archivo es diferente
-    | -------------------------------------------
-*/
 
 /***/ }),
 

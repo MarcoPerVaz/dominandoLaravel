@@ -24,10 +24,3 @@ class RedirectIfAuthenticated
         return $next($request);
     }
 }
-
-
-/* Notas:
-    | --------------
-    | *return redirect('/'); Indica a que ruta ir si el usuario se ha autenticado
-    | --------------
-*/

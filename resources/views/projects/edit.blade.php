@@ -14,7 +14,7 @@
         <form class="bg-white py-3 px-4 shadow rounded" method="POST" action="{{ route('projects.update', $project) }}">
       
           {{-- directiva @method --}}
-            {{ method_field('PATCH') }}
+            @method('PATCH')
           {{-- enddirectiva@method --}}
 
           <h1 class="dipslay-4">Editar proyecto</h1>
@@ -29,12 +29,3 @@
   </div>
   
 @endsection
-
-
-{{-- Notas:
-      | ------------------------------------------------------------------------------------------------------
-      | *El bloque de código de if() fue pasado a la vista resources\views\partials\session-status.blade.php
-      | *El @include('partials.session-status') fue pasado a la vista resources\views\layout.blade.php
-      | *Se dejaron los código en esta vista como referencia
-      | ------------------------------------------------------------------------------------------------------
---}}

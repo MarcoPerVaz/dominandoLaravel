@@ -8,13 +8,6 @@
 
 /* Para bootstrap 4.3.1 */
 
-/* Notas:
-    | -----------------------------------------------------------------------------------------------
-    | *$enable-gradients: true; Para habilitar gradientes
-    | *$enable-responsive-font-sizes: true; Para habilitar que el texto se haga pequeño en responsive
-    | -----------------------------------------------------------------------------------------------
-*/
-
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10783,12 +10776,4 @@ a.text-dark:focus {
 .h-screen {
   height: 100vh;
 }
-
-/* Notas:
-    | ----------------------
-    | *Para Laravel 5.5 Se debe cambiar:
-    |   *Si la aplicación tiene Bootstrap 3.3.7
-    |     *Esto: @import "~bootstrap-sass/assets/stylesheets/bootstrap"; por esto: @import '~bootstrap/scss/bootstrap';
-    | ----------------------
-*/
 

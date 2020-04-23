@@ -61,10 +61,3 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-
-
-/* Notas: 
-    | -------------------------------------------
-    | *En Laravel 5.5 Este archivo es diferente
-    | -------------------------------------------
-*/
